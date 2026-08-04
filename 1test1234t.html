@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kneipenspieler – Casino Boni</title>
+<meta name="description" content="Handverlesene Casino-Boni vom Kneipenspieler. Nur ab 18.">
+<meta name="theme-color" content="#08090C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08090C;
+  --karte:#0F1116;
+  --karte-hoch:#14171E;
+  --linie:rgba(255,255,255,.07);
+  --linie-2:rgba(255,255,255,.14);
+  --text:#F1F2F5;
+  --grau:#878E9E;
+  --amber:#F5A524;
+  --amber-tief:#8A5A08;
+  --gruen:#3DD68C;
+  --rot:#FF7A6B;
+  --rand:clamp(1rem,5vw,2rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:"Inter",system-ui,-apple-system,sans-serif;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-wrap:break-word}
+body.gesperrt{overflow:hidden}
+h1,h2,h3{font-family:"Plus Jakarta Sans",system-ui,sans-serif;margin:0;line-height:1.12;letter-spacing:-.025em}
+a{color:inherit}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:6px}
+.wrap{max-width:960px;margin:0 auto;padding-left:var(--rand);padding-right:var(--rand)}
+
+/* ===== ALTERSPRÜFUNG ===== */
+#agegate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;
+  padding:var(--rand);background:var(--bg);overflow-y:auto}
+#agegate[hidden]{display:none}
+.gate{width:min(420px,100%);text-align:center;background:var(--karte);
+  border:1px solid var(--linie);border-radius:20px;padding:clamp(1.8rem,6vw,2.5rem)}
+.gate-icon{display:grid;place-items:center;width:66px;height:66px;margin:0 auto 1.4rem;
+  border-radius:18px;background:rgba(245,165,36,.12);border:1px solid rgba(245,165,36,.28);
+  font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:1.2rem;color:var(--amber)}
+.gate h2{font-size:1.6rem;font-weight:800;margin-bottom:.8rem}
+.gate p{color:var(--grau);font-size:.94rem;margin:0 0 1.8rem}
+.btn{display:block;width:100%;padding:.95rem 1.2rem;border-radius:12px;
+  font-weight:600;text-align:center;text-decoration:none;transition:background .18s,color .18s,border-color .18s}
+.btn+.btn{margin-top:.6rem}
+.btn--voll{background:var(--amber);color:#171003}
+.btn--voll:hover{background:#ffb43e}
+.btn--leer{border:1px solid var(--linie-2);color:var(--grau)}
+.btn--leer:hover{background:rgba(255,255,255,.04);color:var(--text)}
+.hilfe{text-align:left;background:rgba(255,122,107,.07);border:1px solid rgba(255,122,107,.22);
+  border-radius:14px;padding:1rem 1.1rem}
+.hilfe p{margin:0 0 .5rem;color:var(--text);font-size:.9rem}
+.hilfe p:last-child{margin:0}
+.hilfe a{color:var(--rot);font-weight:600}
+
+/* ===== KOPFZEILE ===== */
+.kopf{position:sticky;top:0;z-index:40;background:rgba(8,9,12,.8);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--linie)}
+.kopf .wrap{display:flex;align-items:center;gap:1rem;padding-top:.9rem;padding-bottom:.9rem}
+.marke{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:-.02em}
+.marke span{color:var(--amber)}
+.kopf .ab18{margin-left:auto;font-size:.7rem;font-weight:600;letter-spacing:.1em;color:var(--grau);
+  border:1px solid var(--linie-2);padding:.25rem .6rem;border-radius:99px}
+
+/* ===== HERO ===== */
+.hero{text-align:center;padding-top:clamp(3rem,9vw,5rem);padding-bottom:clamp(2rem,5vw,3rem)}
+.pille{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--amber);background:rgba(245,165,36,.1);border:1px solid rgba(245,165,36,.25);
+  padding:.4rem .9rem;border-radius:99px;margin-bottom:1.6rem}
+.hero h1{font-size:clamp(2.2rem,8vw,4rem);font-weight:800}
+.hero h1 span{color:var(--amber)}
+.hero p{color:var(--grau);max-width:44ch;margin:1.2rem auto 0;font-size:clamp(.95rem,2.5vw,1.05rem)}
+
+/* ===== SUCHE + FILTER ===== */
+.steuerung{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.5rem;
+  padding-bottom:clamp(1.5rem,4vw,2.2rem)}
+.suche{display:flex;align-items:center;border:1px solid var(--linie);background:var(--karte);
+  border-radius:99px;padding:.2rem;transition:border-color .2s}
+.suche.offen{border-color:var(--amber)}
+.lupe{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;color:var(--grau);
+  flex:none;transition:color .2s,background .2s}
+.lupe:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.suche.offen .lupe{color:var(--amber)}
+.suchfeld{width:0;padding:0;border:0;background:none;color:var(--text);font-size:.9rem;opacity:0;
+  transition:width .35s cubic-bezier(.2,.8,.2,1),opacity .2s,padding .35s}
+.suchfeld::placeholder{color:var(--grau)}
+.suchfeld:focus{outline:none}
+.suche.offen .suchfeld{width:min(58vw,240px);padding:0 .9rem 0 .2rem;opacity:1}
+.chip{font-size:.82rem;font-weight:500;padding:.55rem 1.1rem;border-radius:99px;
+  border:1px solid var(--linie);background:var(--karte);color:var(--grau);
+  transition:border-color .2s,color .2s,background .2s}
+.chip:hover{border-color:var(--linie-2);color:var(--text)}
+.chip[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:#171003;font-weight:600}
+
+/* ===== DEAL-ZEILEN ===== */
+.liste{display:flex;flex-direction:column;gap:1.1rem;padding-bottom:clamp(3rem,8vw,5rem)}
+.deal{background:var(--karte);border:1px solid var(--linie);border-radius:18px;
+  transition:border-color .2s,background .2s}
+.deal:hover{border-color:var(--linie-2);background:var(--karte-hoch)}
+.deal--top{border-color:rgba(245,165,36,.3)}
+.zeile{display:grid;gap:1.3rem;align-items:center;padding:clamp(1.3rem,3.5vw,1.9rem);
+  grid-template-columns:1fr}
+@media(min-width:800px){.zeile{grid-template-columns:auto 1fr auto;gap:1.6rem}}
+.identitaet{display:flex;align-items:center;gap:1.15rem;min-width:0}
+.rang{width:30px;height:30px;flex:none;border-radius:9px;display:grid;place-items:center;
+  font-size:.85rem;font-weight:700;background:rgba(255,255,255,.06);color:var(--grau)}
+.deal--top .rang{background:var(--amber);color:#171003}
+.logo,.logo-alt{width:72px;height:72px;flex:none;border-radius:50%;object-fit:cover;
+  background:var(--karte-hoch);border:1px solid var(--linie-2)}
+.logo-alt{display:grid;place-items:center;font-family:"Plus Jakarta Sans",sans-serif;
+  font-weight:800;font-size:1.6rem;color:var(--amber)}
+.inhalt{min-width:0}
+.inhalt h3{font-size:1.32rem;font-weight:700;margin-bottom:.7rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tag{font-size:.82rem;font-weight:500;padding:.42rem .8rem;border-radius:9px;
+  background:rgba(255,255,255,.05);border:1px solid var(--linie);color:var(--grau);white-space:nowrap}
+.tag--bonus{background:rgba(245,165,36,.11);border-color:rgba(245,165,36,.26);color:var(--amber);font-weight:600}
+.tag--typ{background:rgba(61,214,140,.1);border-color:rgba(61,214,140,.25);color:var(--gruen)}
+.tag--typ.ist-sticky{background:rgba(255,122,107,.1);border-color:rgba(255,122,107,.25);color:var(--rot)}
+.aktion{display:flex;flex-direction:column;gap:.5rem;min-width:0}
+@media(min-width:800px){.aktion{min-width:225px}}
+.cta{display:block;padding:.95rem 1.7rem;border-radius:12px;background:var(--amber);color:#171003;
+  font-weight:700;font-size:.95rem;text-align:center;text-decoration:none;white-space:nowrap;
+  transition:background .18s}
+.cta:hover{background:#ffb43e}
+.details-knopf{display:flex;align-items:center;justify-content:center;gap:.45rem;width:100%;
+  padding:.6rem 1rem;border-radius:11px;border:1px solid var(--linie);
+  font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--grau);
+  transition:color .2s,border-color .2s}
+.details-knopf:hover{color:var(--text);border-color:var(--linie-2)}
+.details-knopf svg{transition:transform .3s}
+.details-knopf[aria-expanded="true"] svg{transform:rotate(180deg)}
+
+/* aufklappbarer Bereich */
+.panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s ease}
+.panel.offen{grid-template-rows:1fr}
+.panel>div{overflow:hidden}
+.panel-inhalt{border-top:1px solid var(--linie);padding:clamp(1.2rem,3.5vw,1.8rem);
+  display:grid;gap:1.8rem}
+@media(min-width:800px){.panel-inhalt{grid-template-columns:1fr 1fr;gap:2.5rem}}
+.panel h4{font-family:"Inter",sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--amber);margin:0 0 .9rem}
+.panel p{margin:0;color:var(--grau);font-size:.92rem}
+.schritte{list-style:none;margin:1rem 0 0;padding:0;display:grid;gap:.6rem}
+.schritte li{display:flex;gap:.7rem;font-size:.92rem;color:var(--grau)}
+.schritte b{color:var(--text);font-weight:600}
+.punkt{width:20px;height:20px;flex:none;border-radius:6px;margin-top:.18rem;display:grid;place-items:center;
+  font-size:.68rem;font-weight:700;background:rgba(245,165,36,.12);color:var(--amber)}
+.tipp{margin-top:1.1rem;background:rgba(255,255,255,.03);border:1px solid var(--linie);
+  border-radius:12px;padding:.9rem 1rem}
+.tipp b{display:block;font-size:.82rem;color:var(--text);margin-bottom:.3rem}
+.tipp p{font-size:.88rem}
+
+/* leerer Zustand */
+.leer{text-align:center;padding:3.5rem 1.5rem;border:1px dashed var(--linie-2);border-radius:16px}
+.leer p{margin:0 0 1.2rem;color:var(--grau)}
+.leer button{font-size:.85rem;font-weight:600;color:#171003;background:var(--amber);
+  padding:.6rem 1.3rem;border-radius:99px}
+
+/* ===== FUSSZEILE ===== */
+.fuss{border-top:1px solid var(--linie);padding-top:clamp(2rem,5vw,3rem);padding-bottom:clamp(2rem,5vw,3rem);
+  display:grid;gap:2rem;justify-items:center;text-align:center}
+@media(min-width:860px){
+  .fuss{grid-template-columns:1fr auto 1fr;align-items:center;gap:2.5rem}
+  .fuss-block:first-child{justify-self:start;text-align:left}
+  .fuss-block:last-child{justify-self:end;text-align:right}
+}
+.fuss-block{display:grid;gap:.5rem}
+.fuss .marke{font-size:1.05rem}
+.fuss-klein{font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--grau)}
+.sozial{display:flex;align-items:center;gap:.6rem}
+.sozial a,.hoch{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--linie);color:var(--grau);background:var(--karte);
+  transition:color .2s,border-color .2s,background .2s}
+.sozial a:hover,.hoch:hover{color:var(--amber);border-color:rgba(245,165,36,.4);background:var(--karte-hoch)}
+.trenner{width:1px;height:24px;background:var(--linie);margin:0 .2rem}
+.fuss p{margin:0;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(135,142,158,.65)}
+.fuss-hinweis{gap:.35rem}
+.fuss-fein{font-size:.66rem;color:rgba(135,142,158,.55)}
+.fuss a.link{color:rgba(135,142,158,.85);text-decoration:none}
+.fuss a.link:hover{color:var(--amber)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body class="gesperrt">
+
+<!-- ===== ALTERSPRÜFUNG (bei jedem Besuch) ===== -->
+<div id="agegate" role="dialog" aria-modal="true" aria-labelledby="gate-titel">
+  <div class="gate" id="gate">
+    <div class="gate-icon" aria-hidden="true">18+</div>
+    <h2 id="gate-titel">Altersprüfung</h2>
+    <p>Glücksspiel kann süchtig machen. Bitte bestätige, dass du mindestens 18 Jahre alt bist.</p>
+    <button class="btn btn--voll" id="ja">Ich bin über 18</button>
+    <button class="btn btn--leer" id="nein">Verlassen</button>
+  </div>
+</div>
+
+<!-- ===== KOPFZEILE ===== -->
+<header class="kopf">
+  <div class="wrap">
+    <div class="marke">kneipen<span>spieler</span></div>
+    <span class="ab18">18+</span>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="wrap hero">
+  <span class="pille">Exklusive Deals 2026</span>
+  <h1>Boni, die sich<br><span>wirklich lohnen</span></h1>
+  <p>Keine endlose Liste. Nur die Casinos, die ich selbst spiele – mit dem Bonus, den ich für euch rausgeholt habe.</p>
+</section>
+
+<!-- ===== SUCHE + FILTER ===== -->
+<div class="wrap steuerung">
+  <div class="suche" id="suche">
+    <button class="lupe" id="lupe" aria-label="Suche öffnen" aria-expanded="false" aria-controls="suchfeld">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.9-3.9"/>
+      </svg>
+    </button>
+    <input class="suchfeld" id="suchfeld" type="search" placeholder="Casino suchen…" aria-label="Casino suchen">
+  </div>
+  <button class="chip" data-filter="alle" aria-pressed="true">Alle</button>
+  <button class="chip" data-filter="non-sticky" aria-pressed="false">Non-Sticky</button>
+  <button class="chip" data-filter="sticky" aria-pressed="false">Sticky</button>
+</div>
+
+<!-- ===== DEALS ===== -->
+<main class="wrap liste" id="liste"></main>
+
+<!-- ===== FUSSZEILE ===== -->
+<footer class="wrap fuss">
+  <div class="fuss-block">
+    <div class="marke">kneipen<span>spieler</span></div>
+    <div class="fuss-klein">Deals &amp; Boni · 2026</div>
+    <div class="fuss-klein fuss-fein">Enthält Affiliate-Links</div>
+  </div>
+
+  <div class="sozial">
+    <a href="https://www.instagram.com/kneipenspieler/" target="_blank" rel="noopener" aria-label="Kneipenspieler auf Instagram">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/>
+        <circle cx="12" cy="12" r="4.2"/>
+        <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+    <a href="https://www.twitch.tv/kneipenspieler" target="_blank" rel="noopener" aria-label="Kneipenspieler auf Twitch">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+        <path d="M4 3h16v11l-4 4h-3.5L9 21H8v-3H4z"/>
+        <path d="M11 8v4M15 8v4" stroke-linecap="round"/>
+      </svg>
+    </a>
+    <a href="https://www.youtube.com/@Kneipenspieler" target="_blank" rel="noopener" aria-label="Kneipenspieler auf YouTube">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+        <rect x="2.5" y="5" width="19" height="14" rx="4.5"/>
+        <path d="M10.3 9.2l4.6 2.8-4.6 2.8z" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+    <span class="trenner" aria-hidden="true"></span>
+    <button class="hoch" id="hoch" aria-label="Nach oben">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>
+    </button>
+  </div>
+
+  <div class="fuss-block fuss-hinweis">
+    <p>Glücksspiel kann süchtig machen.</p>
+    <p>18+ · <a class="link" href="https://www.check-dein-spiel.de" target="_blank" rel="noopener">Spielverantwortung</a></p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   DEALS PFLEGEN – neues Casino = Block kopieren
+   typ: "non-sticky" oder "sticky"
+   logo: Dateiname im selben Ordner wie diese HTML-Datei
+   tags: beliebig viele kurze Stichworte für die Zeile
+   ============================================================ */
+const CASINOS = [
+  {
+    name: "Godz",
+    logo: "Godz.png",
+    typ:  "non-sticky",
+    link: "https://gdz.lunostra.com/?mid=380999_2210866",
+    bonus: "300% bis 2.000€",
+    tags: ["300 FS"],
+    text: "300% Bonus auf deine erste Einzahlung bis zu 2.000€, dazu 300 Freispiele für Gates of Olympus mit 0,20€ Einsatz pro Spin.",
+    schritte: [
+      ["1", "Einzahlen", "über den Link registrieren und erste Einzahlung tätigen."],
+      ["2", "Bonus", "300% Gutschrift, maximal 2.000€."],
+      ["3", "Freispiele", "300 FS in Gates of Olympus à 0,20€."]
+    ]
+  },
+  {
+    name: "Vipluck",
+    logo: "Vipluck.png",
+    typ:  "non-sticky",
+    link: "https://vplk.lunostra.com/?mid=380999_2210865",
+    bonus: "300% bis 2.000€",
+    tags: ["300 FS"],
+    text: "300% Bonus auf deine erste Einzahlung bis zu 2.000€, dazu 300 Freispiele für Gates of Olympus mit 0,20€ Einsatz pro Spin.",
+    schritte: [
+      ["1", "Einzahlen", "über den Link registrieren und erste Einzahlung tätigen."],
+      ["2", "Bonus", "300% Gutschrift, maximal 2.000€."],
+      ["3", "Freispiele", "300 FS in Gates of Olympus à 0,20€."]
+    ]
+  }
+];
+
+const ERKLAERUNG = {
+  "non-sticky": "Du spielst zuerst mit deinem Echtgeld. Gewinne sind sofort auszahlbar, solange der Bonus unberührt bleibt.",
+  "sticky":     "Einzahlung und Bonus werden gemeinsam umgesetzt. Auszahlungen erst nach Erfüllung aller Bedingungen möglich."
+};
+const LABEL = { "non-sticky":"Non-Sticky", "sticky":"Sticky" };
+const TIPP = {
+  "non-sticky": "Solange du den Bonus nicht aktivierst, gehören dir deine Gewinne sofort. Erst wenn dein Echtgeld aufgebraucht ist, greift der Bonus.",
+  "sticky":     "Rechne vor dem Start durch, wie viel Umsatz auf dich zukommt. Erst danach kannst du dir etwas auszahlen lassen."
+};
+
+/* ---------- Altersprüfung ---------- */
+const gate = document.getElementById("agegate");
+document.getElementById("ja").addEventListener("click", () => {
+  gate.hidden = true;
+  document.body.classList.remove("gesperrt");
+});
+document.getElementById("nein").addEventListener("click", () => {
+  document.getElementById("gate").innerHTML = `
+    <div class="gate-icon" aria-hidden="true">18+</div>
+    <h2>Zutritt erst ab 18</h2>
+    <p>Diese Seite darf dir keine Glücksspiel-Angebote zeigen. Bitte schließe den Tab.</p>
+    <div class="hilfe">
+      <p><b>Du brauchst Hilfe beim Thema Glücksspiel?</b></p>
+      <p>Beratung, kostenlos und anonym: <a href="tel:0800137270 0">0800 1 372 700</a></p>
+      <p><a href="https://www.check-dein-spiel.de" target="_blank" rel="noopener">check-dein-spiel.de</a></p>
+    </div>`;
+});
+document.getElementById("ja").focus();
+
+/* ---------- Suche ---------- */
+const suche = document.getElementById("suche");
+const lupe  = document.getElementById("lupe");
+const feld  = document.getElementById("suchfeld");
+lupe.addEventListener("click", () => {
+  const offen = suche.classList.toggle("offen");
+  lupe.setAttribute("aria-expanded", offen);
+  lupe.setAttribute("aria-label", offen ? "Suche schließen" : "Suche öffnen");
+  if (offen) feld.focus(); else { feld.value = ""; zeichnen(); }
+});
+feld.addEventListener("input", zeichnen);
+feld.addEventListener("keydown", e => { if (e.key === "Escape") lupe.click(); });
+
+/* ---------- Filter ---------- */
+let filter = "alle";
+document.querySelectorAll(".chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    filter = chip.dataset.filter;
+    document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === chip));
+    zeichnen();
+  });
+});
+
+/* ---------- Liste bauen ---------- */
+function zeichnen(){
+  const q = feld.value.trim().toLowerCase();
+  const treffer = CASINOS.filter(c => {
+    const passt = filter === "alle" || c.typ === filter;
+    const text = [c.name, c.bonus, LABEL[c.typ], ...c.tags].join(" ").toLowerCase();
+    return passt && (!q || text.includes(q));
+  });
+
+  const liste = document.getElementById("liste");
+
+  if (!treffer.length){
+    liste.innerHTML = `<div class="leer">
+      <p>Kein Angebot passt zu dieser Suche.</p>
+      <button id="reset">Filter zurücksetzen</button></div>`;
+    document.getElementById("reset").addEventListener("click", () => {
+      feld.value = ""; filter = "alle";
+      suche.classList.remove("offen");
+      lupe.setAttribute("aria-expanded", false);
+      document.querySelectorAll(".chip").forEach(c =>
+        c.setAttribute("aria-pressed", c.dataset.filter === "alle"));
+      zeichnen();
+    });
+    return;
+  }
+
+  liste.innerHTML = treffer.map((c, i) => `
+    <article class="deal ${i === 0 ? "deal--top" : ""}">
+      <div class="zeile">
+        <div class="identitaet">
+          <span class="rang">${i + 1}</span>
+          <img class="logo" src="${c.logo}" alt="${c.name} Logo" loading="lazy"
+               onerror="this.outerHTML='<div class=&quot;logo-alt&quot; aria-hidden=&quot;true&quot;>${c.name.charAt(0)}</div>'">
+        </div>
+
+        <div class="inhalt">
+          <h3>${c.name}</h3>
+          <div class="tags">
+            <span class="tag tag--bonus">${c.bonus}</span>
+            <span class="tag tag--typ ${c.typ === "sticky" ? "ist-sticky" : ""}">${LABEL[c.typ]}</span>
+            ${c.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+          </div>
+        </div>
+
+        <div class="aktion">
+          <a class="cta" href="${c.link}" target="_blank" rel="nofollow sponsored noopener">Bonus holen →</a>
+          <button class="details-knopf" aria-expanded="false">
+            Details
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="panel"><div>
+        <div class="panel-inhalt">
+          <div>
+            <h4>Über diesen Bonus</h4>
+            <p>${c.text}</p>
+            <ul class="schritte">
+              ${c.schritte.map(([n, titel, rest]) =>
+                `<li><span class="punkt">${n}</span><span><b>${titel}:</b> ${rest}</span></li>`).join("")}
+            </ul>
+          </div>
+          <div>
+            <h4>${LABEL[c.typ]} erklärt</h4>
+            <p>${ERKLAERUNG[c.typ]}</p>
+            <div class="tipp">
+              <b>Tipp</b>
+              <p>${TIPP[c.typ]}</p>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </article>`).join("");
+
+  liste.querySelectorAll(".details-knopf").forEach(b => {
+    b.addEventListener("click", () => {
+      const auf = b.getAttribute("aria-expanded") !== "true";
+      b.setAttribute("aria-expanded", auf);
+      b.closest(".deal").querySelector(".panel").classList.toggle("offen", auf);
+    });
+  });
+}
+
+zeichnen();
+
+/* ---------- Nach oben ---------- */
+document.getElementById("hoch").addEventListener("click", () => {
+  const sanft = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({ top: 0, behavior: sanft ? "smooth" : "auto" });
+});
+</script>
+</body>
+</html>
