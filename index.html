@@ -152,7 +152,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .schritte{list-style:none;margin:1rem 0 0;padding:0;display:grid;gap:.6rem}
 .schritte li{display:flex;gap:.7rem;font-size:.92rem;color:var(--grau)}
 .schritte b{color:var(--text);font-weight:600}
-.punkt{width:20px;height:20px;flex:none;border-radius:6px;margin-top:.18rem;display:grid;place-items:center;
+.punkt{min-width:20px;padding:0 4px;height:20px;flex:none;border-radius:6px;margin-top:.18rem;display:grid;place-items:center;
   font-size:.68rem;font-weight:700;background:rgba(245,165,36,.12);color:var(--amber)}
 .plus{display:flex;align-items:flex-start;gap:.6rem;margin-top:1rem;
   background:rgba(61,214,140,.08);border:1px solid rgba(61,214,140,.28);
@@ -160,6 +160,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .plus svg{flex:none;margin-top:.15rem;color:var(--gruen)}
 .plus span{font-size:.9rem;color:var(--text)}
 .plus b{color:var(--gruen);font-weight:700}
+.plus--fs{background:rgba(245,165,36,.09);border-color:rgba(245,165,36,.3)}
+.plus--fs svg{color:var(--amber)}
+.plus--fs b{color:var(--amber)}
 .tipp{margin-top:1.1rem;background:rgba(255,255,255,.03);border:1px solid var(--linie);
   border-radius:12px;padding:.9rem 1rem}
 .tipp b{display:block;font-size:.82rem;color:var(--text);margin-bottom:.3rem}
@@ -299,15 +302,16 @@ const CASINOS = [
     logo: "Godz.png",
     typ:  "non-sticky",
     link: "https://gdz.lunostra.com/?mid=380999_2210866",
-    bonus: "300% bis 2.000€",
-    tags: ["300 FS"],
-    text: "300% Bonus auf deine erste Einzahlung bis zu 2.000€, dazu 300 Freispiele für Gates of Olympus mit 0,20€ Einsatz pro Spin.",
+    bonus: "500% Bonus-Paket",
+    tags: ["300 FS", "35x Wager", "Nur kurze Zeit"],
+    text: "Das Bonus-Paket verteilt sich auf deine ersten drei Einzahlungen und ergibt zusammen 500% Bonus. Dazu kommen 300 Freispiele für Gates of Olympus mit 0,20€ Einsatz pro Spin. Umsatzbedingung: 35x.",
     plus: "Auf das Bonusguthaben gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
     schritte: [
-      ["1", "Einzahlen", "über den Link registrieren und erste Einzahlung tätigen."],
-      ["2", "Bonus", "300% Gutschrift, maximal 2.000€."],
-      ["3", "Freispiele", "300 FS in Gates of Olympus à 0,20€."]
-    ]
+      ["1", "Einzahlung", "+150% Bonus auf deine erste Einzahlung."],
+      ["2", "Einzahlung", "+50% Bonus auf deine zweite Einzahlung."],
+      ["3", "Einzahlung", "+300% Bonus auf deine dritte Einzahlung."]
+    ],
+    fs: "300 Freispiele in Gates of Olympus, à 0,20€ pro Spin." 
   },
   {
     name: "Vipluck",
@@ -320,9 +324,9 @@ const CASINOS = [
     plus: "Auf das Bonusguthaben gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
     schritte: [
       ["1", "Einzahlen", "über den Link registrieren und erste Einzahlung tätigen."],
-      ["2", "Bonus", "300% Gutschrift, maximal 2.000€."],
-      ["3", "Freispiele", "300 FS in Gates of Olympus à 0,20€."]
-    ]
+      ["2", "Bonus", "300% Gutschrift, maximal 2.000€."]
+    ],
+    fs: "300 Freispiele in Gates of Olympus, à 0,20€ pro Spin." 
   }
 ];
 
@@ -383,7 +387,7 @@ function zeichnen(){
   const q = feld.value.trim().toLowerCase();
   const treffer = CASINOS.filter(c => {
     const passt = filter === "alle" || c.typ === filter;
-    const text = [c.name, c.bonus, LABEL[c.typ], c.plus || "", ...c.tags].join(" ").toLowerCase();
+    const text = [c.name, c.bonus, LABEL[c.typ], c.plus || "", c.fs || "", ...c.tags].join(" ").toLowerCase();
     return passt && (!q || text.includes(q));
   });
 
@@ -444,6 +448,10 @@ function zeichnen(){
               ${c.schritte.map(([n, titel, rest]) =>
                 `<li><span class="punkt">${n}</span><span><b>${titel}:</b> ${rest}</span></li>`).join("")}
             </ul>
+            ${c.fs ? `<div class="plus plus--fs">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.6 6.6L21 9.6l-4.8 4.4 1.3 6.6L12 17.4 6.5 20.6l1.3-6.6L3 9.6l6.4-1z"/></svg>
+              <span><b>Plus Freispiele.</b> ${c.fs}</span>
+            </div>` : ""}
           </div>
           <div>
             <h4>${LABEL[c.typ]} erklärt</h4>
