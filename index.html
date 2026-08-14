@@ -168,11 +168,41 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .tipp b{display:block;font-size:.82rem;color:var(--text);margin-bottom:.3rem}
 .tipp p{font-size:.88rem}
 
-/* leerer Zustand */
+/* leerer Zustand (Suche ohne Treffer) */
 .leer{text-align:center;padding:3.5rem 1.5rem;border:1px dashed var(--linie-2);border-radius:16px}
 .leer p{margin:0 0 1.2rem;color:var(--grau)}
 .leer button{font-size:.85rem;font-weight:600;color:#171003;background:var(--amber);
   padding:.6rem 1.3rem;border-radius:99px}
+
+/* Pause-Zustand: aktuell gar keine Deals online */
+.pause{text-align:center;background:var(--karte);border:1px solid var(--linie);
+  border-radius:20px;padding:clamp(2.2rem,7vw,3.5rem) clamp(1.2rem,5vw,2.5rem)}
+.pause-icon{display:grid;place-items:center;width:74px;height:74px;margin:0 auto 1.6rem;
+  border-radius:22px;background:rgba(245,165,36,.1);border:1px solid rgba(245,165,36,.25);
+  color:var(--amber)}
+.pause-pille{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--grau);
+  background:rgba(255,255,255,.03);border:1px solid var(--linie-2);
+  padding:.4rem .9rem;border-radius:99px;margin-bottom:1.4rem}
+.pause-punkt{width:6px;height:6px;border-radius:50%;background:var(--amber);
+  animation:pulsieren 2s ease-in-out infinite}
+@keyframes pulsieren{0%,100%{opacity:1}50%{opacity:.25}}
+.pause h2{font-size:clamp(1.5rem,5vw,2rem);font-weight:800;margin-bottom:.9rem}
+.pause h2 span{color:var(--amber)}
+.pause>p{color:var(--grau);font-size:.95rem;max-width:46ch;margin:0 auto}
+.pause-info{display:grid;gap:.9rem;max-width:34rem;margin:2.2rem auto 0;text-align:left}
+@media(min-width:700px){.pause-info{grid-template-columns:1fr 1fr}}
+.pause-karte{background:rgba(255,255,255,.025);border:1px solid var(--linie);
+  border-radius:14px;padding:1.1rem 1.2rem}
+.pause-karte b{display:block;font-size:.88rem;color:var(--text);margin-bottom:.3rem;font-weight:600}
+.pause-karte p{margin:0;font-size:.85rem;color:var(--grau)}
+.pause-fuss{margin-top:2.2rem;padding-top:1.6rem;border-top:1px solid var(--linie)}
+.pause-fuss p{margin:0 0 1rem;font-size:.85rem;color:var(--grau)}
+.pause-links{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.pause-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:600;
+  padding:.65rem 1.2rem;border-radius:99px;text-decoration:none;
+  border:1px solid var(--linie-2);color:var(--text);transition:border-color .2s,background .2s,color .2s}
+.pause-link:hover{border-color:var(--amber);color:var(--amber);background:rgba(245,165,36,.06)}
 
 /* ===== FUSSZEILE ===== */
 .fuss{border-top:1px solid var(--linie);padding-top:clamp(2rem,5vw,3rem);padding-bottom:clamp(2rem,5vw,3rem);
@@ -226,9 +256,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 <!-- ===== HERO ===== -->
 <section class="wrap hero">
-  <span class="pille">Exklusive Deals 2026</span>
+  <span class="pille" id="hero-pille">Exklusive Deals 2026</span>
   <h1>Boni, die sich<br><span>wirklich lohnen</span></h1>
-  <p>Keine endlose Liste. Nur die Casinos, die ich selbst spiele – mit dem Bonus, den ich für euch rausgeholt habe.</p>
+  <p id="hero-text">Keine endlose Liste. Nur die Casinos, die ich selbst spiele – mit dem Bonus, den ich für euch rausgeholt habe.</p>
 </section>
 
 <!-- ===== SUCHE + FILTER ===== -->
@@ -297,37 +327,32 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
    tags: beliebig viele kurze Stichworte für die Zeile
    ============================================================ */
 const CASINOS = [
-  {
-    name: "Godz",
-    logo: "Godz.png",
-    typ:  "non-sticky",
-    link: "https://gdz.lunostra.com/?mid=380999_2210866",
-    bonus: "500% Bonus-Paket",
-    tags: ["300 FS", "35x Wager", "Nur kurze Zeit"],
-    text: "Das Bonus-Paket verteilt sich auf deine ersten drei Einzahlungen und ergibt zusammen 500% Bonus. Dazu kommen 300 Freispiele für Gates of Olympus mit 0,20€ Einsatz pro Spin. Umsatzbedingung: 35x.",
-    plus: "Auf das Bonusguthaben gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
-    schritte: [
-      ["1", "Einzahlung", "+150% Bonus auf deine erste Einzahlung."],
-      ["2", "Einzahlung", "+50% Bonus auf deine zweite Einzahlung."],
-      ["3", "Einzahlung", "+300% Bonus auf deine dritte Einzahlung."]
-    ],
-    fs: "300 Freispiele in Gates of Olympus, 0,20€ pro Spin." 
-  },
-  {
-    name: "Vipluck",
-    logo: "Vipluck.png",
-    typ:  "non-sticky",
-    link: "https://vplk.lunostra.com/?mid=380999_2210865",
-    bonus: "300% bis 2.000€",
-    tags: ["300 FS"],
-    text: "300% Bonus auf deine erste Einzahlung bis zu 2.000€, dazu 300 Freispiele für Gates of Olympus mit 0,20€ Einsatz pro Spin.",
-    plus: "Auf das Bonusguthaben gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
-    schritte: [
-      ["1", "Einzahlen", "über den Link registrieren und erste Einzahlung tätigen."],
-      ["2", "Bonus", "300% Gutschrift, maximal 2.000€."]
-    ],
-    fs: "300 Freispiele in Gates of Olympus, à 0,20€ pro Spin." 
-  }
+
+  // ------------------------------------------------------------
+  // Aktuell keine Deals online.
+  //
+  // Neues Casino hinzufuegen: die Vorlage unten kopieren, die
+  // Kommentar-Schraegstriche am Zeilenanfang entfernen und die
+  // Daten anpassen. Die Seite schaltet automatisch von der
+  // Pausen-Ansicht auf die Deal-Liste um.
+  // ------------------------------------------------------------
+  //
+  // {
+  //   name: "Casinoname",
+  //   logo: "Casinoname.png",
+  //   typ:  "non-sticky",              // oder "sticky"
+  //   link: "https://dein-affiliate-link",
+  //   bonus: "300% bis 2.000€",
+  //   tags: ["300 FS", "35x Wager"],
+  //   text: "Kurze Beschreibung des Bonus.",
+  //   plus: "Auf das Bonusguthaben gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
+  //   schritte: [
+  //     ["1", "Einzahlen", "über den Link registrieren und erste Einzahlung tätigen."],
+  //     ["2", "Bonus", "300% Gutschrift, maximal 2.000€."]
+  //   ],
+  //   fs: "300 Freispiele in Gates of Olympus, 0,20€ pro Spin."
+  // },
+
 ];
 
 const ERKLAERUNG = {
@@ -339,6 +364,50 @@ const TIPP = {
   "non-sticky": "Solange du den Bonus nicht aktivierst, gehören dir deine Gewinne sofort. Erst wenn dein Echtgeld aufgebraucht ist, greift der Bonus.",
   "sticky":     "Rechne vor dem Start durch, wie viel Umsatz auf dich zukommt. Erst danach kannst du dir etwas auszahlen lassen."
 };
+
+/* ---------- Ansicht, wenn gerade keine Deals online sind ---------- */
+const PAUSE_ANSICHT = `
+  <section class="pause">
+    <div class="pause-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.4-3.4"/>
+      </svg>
+    </div>
+
+    <span class="pause-pille"><span class="pause-punkt"></span>Neue Deals in Arbeit</span>
+
+    <h2>Gerade <span>keine Angebote</span> online</h2>
+    <p>Ich nehme lieber ein Casino von der Seite, als einen Bonus zu empfehlen, hinter dem ich nicht stehe. Deshalb ist hier im Moment nichts zu sehen – ich verhandle gerade neue Deals.</p>
+
+    <div class="pause-info">
+      <div class="pause-karte">
+        <b>Warum ist hier nichts?</b>
+        <p>Alte Aktionen sind ausgelaufen oder die Konditionen haben sich verschlechtert. Beides ist kein Grund, sie trotzdem stehen zu lassen.</p>
+      </div>
+      <div class="pause-karte">
+        <b>Wie geht es weiter?</b>
+        <p>Sobald ein Angebot durch ist, das die Bedingungen wirklich wert ist, landet es hier – getestet und mit allen Konditionen im Klartext.</p>
+      </div>
+    </div>
+
+    <div class="pause-fuss">
+      <p>Am schnellsten erfährst du davon über meine Kanäle:</p>
+      <div class="pause-links">
+        <a class="pause-link" href="https://www.twitch.tv/kneipenspieler" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M4 3h16v11l-4 4h-3.5L9 21H8v-3H4z"/><path d="M11 8v4M15 8v4" stroke-linecap="round"/></svg>
+          Twitch
+        </a>
+        <a class="pause-link" href="https://www.instagram.com/kneipenspieler/" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a class="pause-link" href="https://www.youtube.com/@Kneipenspieler" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="4.5"/><path d="M10.3 9.2l4.6 2.8-4.6 2.8z" fill="currentColor" stroke="none"/></svg>
+          YouTube
+        </a>
+      </div>
+    </div>
+  </section>`;
 
 /* ---------- Altersprüfung ---------- */
 const gate = document.getElementById("agegate");
@@ -384,6 +453,14 @@ document.querySelectorAll(".chip").forEach(chip => {
 
 /* ---------- Liste bauen ---------- */
 function zeichnen(){
+  // Gar keine Deals gepflegt? Dann Pausen-Ansicht zeigen und Steuerung ausblenden.
+  if (!CASINOS.length){
+    document.querySelector(".steuerung").hidden = true;
+    document.getElementById("liste").innerHTML = PAUSE_ANSICHT;
+    return;
+  }
+  document.querySelector(".steuerung").hidden = false;
+
   const q = feld.value.trim().toLowerCase();
   const treffer = CASINOS.filter(c => {
     const passt = filter === "alle" || c.typ === filter;
@@ -472,6 +549,12 @@ function zeichnen(){
       b.closest(".deal").querySelector(".panel").classList.toggle("offen", auf);
     });
   });
+}
+
+if (!CASINOS.length){
+  document.getElementById("hero-pille").textContent = "Aktuell in Verhandlung";
+  document.getElementById("hero-text").textContent =
+    "Ich empfehle nur Boni, die ich selbst spielen würde. Gerade ist keiner dabei – das ändert sich bald wieder.";
 }
 
 zeichnen();
