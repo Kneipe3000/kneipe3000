@@ -163,6 +163,36 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .plus--fs{background:rgba(245,165,36,.09);border-color:rgba(245,165,36,.3)}
 .plus--fs svg{color:var(--amber)}
 .plus--fs b{color:var(--amber)}
+/* Bonus-Code zum Kopieren */
+.code-feld{margin-top:1.1rem}
+.code-feld>span{display:block;font-size:.7rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--grau);margin-bottom:.5rem}
+.code-knopf{display:inline-flex;align-items:center;gap:.6rem;
+  background:rgba(245,165,36,.09);border:1px dashed rgba(245,165,36,.45);
+  border-radius:11px;padding:.6rem 1rem;color:var(--amber);
+  font-family:ui-monospace,"SF Mono",monospace;font-weight:700;font-size:1rem;
+  letter-spacing:.08em;transition:background .2s,border-color .2s,color .2s}
+.code-knopf:hover{background:rgba(245,165,36,.16);border-color:var(--amber)}
+.code-knopf.kopiert{background:rgba(61,214,140,.12);border-color:rgba(61,214,140,.5);color:var(--gruen)}
+.code-knopf svg{flex:none}
+.tag--code{background:rgba(245,165,36,.11);border-color:rgba(245,165,36,.26);color:var(--amber);
+  font-family:ui-monospace,monospace;font-weight:700}
+
+/* Konditionen-Liste */
+.kond{list-style:none;margin:1.1rem 0 0;padding:0;display:grid;gap:0}
+.kond li{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;
+  border-bottom:1px solid var(--linie);font-size:.88rem;color:var(--grau)}
+.kond li:last-child{border-bottom:0}
+.kond li b{color:var(--text);font-weight:600;text-align:right}
+
+/* Warnung */
+.warn{display:flex;align-items:flex-start;gap:.6rem;margin-top:1.1rem;
+  background:rgba(255,122,107,.07);border:1px solid rgba(255,122,107,.26);
+  border-radius:12px;padding:.8rem .95rem}
+.warn svg{flex:none;margin-top:.15rem;color:var(--rot)}
+.warn span{font-size:.88rem;color:var(--grau)}
+.warn b{color:var(--rot);font-weight:700}
+
 .tipp{margin-top:1.1rem;background:rgba(255,255,255,.03);border:1px solid var(--linie);
   border-radius:12px;padding:.9rem 1rem}
 .tipp b{display:block;font-size:.82rem;color:var(--text);margin-bottom:.3rem}
@@ -329,29 +359,109 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 const CASINOS = [
 
   // ------------------------------------------------------------
-  // Aktuell keine Deals online.
-  //
-  // Neues Casino hinzufuegen: die Vorlage unten kopieren, die
-  // Kommentar-Schraegstriche am Zeilenanfang entfernen und die
-  // Daten anpassen. Die Seite schaltet automatisch von der
-  // Pausen-Ansicht auf die Deal-Liste um.
+  // Neues Casino = Block kopieren und anpassen.
+  // typ         : "non-sticky" oder "sticky"
+  // logo        : Dateiname im selben Ordner, immer <Name>.png
+  // code        : optional - zeigt einen Code zum Kopieren
+  // ohneEinzahlung : optional - goldene Box "ohne Einzahlung"
+  // kond        : Konditionen fuer die rechte Spalte
   // ------------------------------------------------------------
-  //
-  // {
-  //   name: "Casinoname",
-  //   logo: "Casinoname.png",
-  //   typ:  "non-sticky",              // oder "sticky"
-  //   link: "https://dein-affiliate-link",
-  //   bonus: "300% bis 2.000€",
-  //   tags: ["300 FS", "35x Wager"],
-  //   text: "Kurze Beschreibung des Bonus.",
-  //   plus: "Auf das Bonusguthaben gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
-  //   schritte: [
-  //     ["1", "Einzahlen", "über den Link registrieren und erste Einzahlung tätigen."],
-  //     ["2", "Bonus", "300% Gutschrift, maximal 2.000€."]
-  //   ],
-  //   fs: "300 Freispiele in Gates of Olympus, 0,20€ pro Spin."
-  // },
+
+  {
+    name: "Oshi",
+    logo: "Oshi.png",
+    typ:  "non-sticky",
+    link: "https://oshilinks.com/a69pafmcn",
+    bonus: "350% bis 4.000€",
+    tags: ["450 FS", "40x Wager"],
+    code: "WELCOME100",
+    text: "350% Bonus auf deine Einzahlung bis zu 4.000€, dazu 450 Freispiele. Non-Sticky – dein Echtgeld läuft zuerst.",
+    kond: [
+      ["Mindesteinzahlung", "20 €"],
+      ["Umsatz", "40x"],
+      ["Max Bet im Bonus", "5 €"],
+      ["Max Cashout", "5.000 € oder 30x Einzahlung"]
+    ],
+    warnung: "Die Gewinnobergrenze auf dem Guthaben bleibt aktiv, auch nachdem die Umsatzbedingungen erfüllt sind.",
+    fs: "450 Freispiele."
+  },
+
+  {
+    name: "Ybets",
+    logo: "Ybets.png",
+    typ:  "non-sticky",
+    link: "https://ybetspromo.io/afaaycvg4z",
+    bonus: "500% Willkommenspaket",
+    tags: ["200% auf die 1. Einzahlung"],
+    text: "Willkommenspaket über insgesamt 500%, verteilt auf mehrere Einzahlungen. Die erste Einzahlung wird mit 200% verdoppelt und mehr.",
+    schritte: [
+      ["1", "1. Einzahlung", "200% Bonus."],
+      ["+", "Weitere Einzahlungen", "ergänzen das Paket auf insgesamt 500%."]
+    ]
+  },
+
+  {
+    name: "Immerion",
+    logo: "Immerion.png",
+    typ:  "non-sticky",
+    link: "https://imrpromo.com/afrgw03zzj",
+    bonus: "400% Willkommenspaket",
+    tags: ["100% auf die 1. Einzahlung"],
+    text: "Willkommenspaket über insgesamt 400%, verteilt auf mehrere Einzahlungen. Den Anfang macht ein 100% Bonus auf deine erste Einzahlung.",
+    schritte: [
+      ["1", "1. Einzahlung", "100% Bonus."],
+      ["+", "Weitere Einzahlungen", "ergänzen das Paket auf insgesamt 400%."]
+    ]
+  },
+
+  {
+    name: "7ABet",
+    logo: "7ABet.png",
+    typ:  "non-sticky",
+    link: "https://record.yoloaffiliates.com/_uBRw8iqSmSputv7iXV6HvmNd7ZgqdRLk/101/?payload=kneipenbonus",
+    bonus: "300% bis 200€",
+    tags: ["50 FS", "Kein Code nötig"],
+    text: "300% Bonus auf deine Einzahlung bis zu 200€, dazu 50 Freispiele. Non-Sticky – deine Gewinne bleiben auszahlbar, solange der Bonus unberührt ist.",
+    fs: "50 Freispiele."
+  },
+
+  {
+    name: "Crocoslots",
+    logo: "Crocoslots.png",
+    typ:  "sticky",
+    link: "https://crocoslotsmedia.com/actejjgtd",
+    bonus: "200% bis 200€",
+    tags: ["200 FS", "45x Wager"],
+    code: "FS100",
+    text: "200% Bonus bis zu 200€ plus 200 Freispiele. Obendrauf gibt es 200 Freispiele ohne Einzahlung.",
+    ohneEinzahlung: "200 Freispiele ohne Einzahlung – mit dem Code FS100.",
+    kond: [
+      ["Mindesteinzahlung", "20 €"],
+      ["Umsatz", "45x"],
+      ["Max Bet im Bonus", "5 €"],
+      ["Max Cashout", "30x Einzahlung"]
+    ],
+    fs: "200 Freispiele zur Einzahlung."
+  },
+
+  {
+    name: "Bitkingz",
+    logo: "Bitkingz.png",
+    typ:  "sticky",
+    link: "https://www.bitkingzmedia.com/af7wmbpuo",
+    bonus: "200% bis 200€",
+    tags: ["200 FS", "45x Wager"],
+    code: "FS100",
+    text: "200% Bonus bis zu 200€ plus 200 Freispiele. Obendrauf gibt es 200 Freispiele ohne Einzahlung.",
+    ohneEinzahlung: "200 Freispiele ohne Einzahlung – mit dem Code FS100.",
+    kond: [
+      ["Mindesteinzahlung", "20 €"],
+      ["Umsatz", "45x"],
+      ["Max Bet im Bonus", "5 €"],
+      ["Max Cashout", "30x Einzahlung"]
+    ],
+    fs: "200 Freispiele zur Einzahlung."
+  }
 
 ];
 
@@ -464,7 +574,7 @@ function zeichnen(){
   const q = feld.value.trim().toLowerCase();
   const treffer = CASINOS.filter(c => {
     const passt = filter === "alle" || c.typ === filter;
-    const text = [c.name, c.bonus, LABEL[c.typ], c.plus || "", c.fs || "", ...c.tags].join(" ").toLowerCase();
+    const text = [c.name, c.bonus, LABEL[c.typ], c.plus || "", c.fs || "", c.code || "", ...(c.tags || [])].join(" ").toLowerCase();
     return passt && (!q || text.includes(q));
   });
 
@@ -499,7 +609,8 @@ function zeichnen(){
           <div class="tags">
             <span class="tag tag--bonus">${c.bonus}</span>
             <span class="tag tag--typ ${c.typ === "sticky" ? "ist-sticky" : ""}">${LABEL[c.typ]}</span>
-            ${c.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+            ${(c.tags || []).map(t => `<span class="tag">${t}</span>`).join("")}
+            ${c.code ? `<span class="tag tag--code">Code ${c.code}</span>` : ""}
           </div>
         </div>
 
@@ -521,18 +632,38 @@ function zeichnen(){
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
               <span><b>Kein Max Cashout.</b> ${c.plus}</span>
             </div>` : ""}
-            <ul class="schritte">
+            ${c.schritte ? `<ul class="schritte">
               ${c.schritte.map(([n, titel, rest]) =>
                 `<li><span class="punkt">${n}</span><span><b>${titel}:</b> ${rest}</span></li>`).join("")}
-            </ul>
+            </ul>` : ""}
+            ${c.code ? `<div class="code-feld">
+              <span>Bonus-Code – zum Kopieren anklicken</span>
+              <button class="code-knopf" data-code="${c.code}">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                ${c.code}
+              </button>
+            </div>` : ""}
+            ${c.ohneEinzahlung ? `<div class="plus plus--fs">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              <span><b>Ohne Einzahlung.</b> ${c.ohneEinzahlung}</span>
+            </div>` : ""}
             ${c.fs ? `<div class="plus plus--fs">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.6 6.6L21 9.6l-4.8 4.4 1.3 6.6L12 17.4 6.5 20.6l1.3-6.6L3 9.6l6.4-1z"/></svg>
               <span><b>Plus Freispiele.</b> ${c.fs}</span>
             </div>` : ""}
           </div>
           <div>
-            <h4>${LABEL[c.typ]} erklärt</h4>
+            ${c.kond ? `<h4>Konditionen</h4>
+            <ul class="kond">
+              ${c.kond.map(([k, v]) => `<li><span>${k}</span><b>${v}</b></li>`).join("")}
+            </ul>
+            <h4 style="margin-top:1.6rem">${LABEL[c.typ]} erklärt</h4>`
+            : `<h4>${LABEL[c.typ]} erklärt</h4>`}
             <p>${ERKLAERUNG[c.typ]}</p>
+            ${c.warnung ? `<div class="warn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+              <span><b>Wichtig.</b> ${c.warnung}</span>
+            </div>` : ""}
             <div class="tipp">
               <b>Tipp</b>
               <p>${TIPP[c.typ]}</p>
@@ -541,6 +672,24 @@ function zeichnen(){
         </div>
       </div></div>
     </article>`).join("");
+
+  liste.querySelectorAll(".code-knopf").forEach(b => {
+    b.addEventListener("click", async () => {
+      const code = b.dataset.code;
+      try {
+        if (navigator.clipboard) await navigator.clipboard.writeText(code);
+        else {
+          const t = document.createElement("textarea");
+          t.value = code; document.body.appendChild(t); t.select();
+          document.execCommand("copy"); document.body.removeChild(t);
+        }
+        const alt = b.innerHTML;
+        b.classList.add("kopiert");
+        b.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Kopiert!`;
+        setTimeout(() => { b.classList.remove("kopiert"); b.innerHTML = alt; }, 1800);
+      } catch (e) { console.error("Kopieren fehlgeschlagen:", e); }
+    });
+  });
 
   liste.querySelectorAll(".details-knopf").forEach(b => {
     b.addEventListener("click", () => {
