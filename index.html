@@ -113,10 +113,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .rang{width:30px;height:30px;flex:none;border-radius:9px;display:grid;place-items:center;
   font-size:.85rem;font-weight:700;background:rgba(255,255,255,.06);color:var(--grau)}
 .deal--top .rang{background:var(--amber);color:#171003}
-.logo,.logo-alt{width:72px;height:72px;flex:none;border-radius:50%;object-fit:cover;
-  background:var(--karte-hoch);border:1px solid var(--linie-2)}
+.logo,.logo-alt{width:80px;height:80px;flex:none;border-radius:18px;
+  object-fit:contain;object-position:center;
+  background:var(--karte-hoch);border:1px solid var(--linie-2);overflow:hidden}
 .logo-alt{display:grid;place-items:center;font-family:"Plus Jakarta Sans",sans-serif;
-  font-weight:800;font-size:1.6rem;color:var(--amber)}
+  font-weight:800;font-size:1.7rem;color:var(--amber)}
 .inhalt{min-width:0}
 .inhalt h3{font-size:1.32rem;font-weight:700;margin-bottom:.7rem}
 .tags{display:flex;flex-wrap:wrap;gap:.4rem}
@@ -177,6 +178,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .code-knopf svg{flex:none}
 .tag--code{background:rgba(245,165,36,.11);border-color:rgba(245,165,36,.26);color:var(--amber);
   font-family:ui-monospace,monospace;font-weight:700}
+
+/* Instant-Auszahlung-Hinweis */
+.blitz{display:flex;align-items:flex-start;gap:.6rem;margin-top:1rem;
+  background:rgba(61,214,140,.08);border:1px solid rgba(61,214,140,.28);
+  border-radius:12px;padding:.8rem .95rem}
+.blitz svg{flex:none;margin-top:.15rem;color:var(--gruen)}
+.blitz span{font-size:.9rem;color:var(--text)}
+.blitz b{color:var(--gruen);font-weight:700}
 
 /* Konditionen-Liste */
 .kond{list-style:none;margin:1.1rem 0 0;padding:0;display:grid;gap:0}
@@ -368,22 +377,15 @@ const CASINOS = [
   // ------------------------------------------------------------
 
   {
-    name: "Oshi",
-    logo: "Oshi.png",
+    name: "7ABet",
+    logo: "7abet.png",
     typ:  "non-sticky",
-    link: "https://oshilinks.com/a69pafmcn",
-    bonus: "350% bis 4.000€",
-    tags: ["450 FS", "40x Wager"],
-    code: "WELCOME100",
-    text: "350% Bonus auf deine Einzahlung bis zu 4.000€, dazu 450 Freispiele. Non-Sticky – dein Echtgeld läuft zuerst.",
-    kond: [
-      ["Mindesteinzahlung", "20 €"],
-      ["Umsatz", "40x"],
-      ["Max Bet im Bonus", "5 €"],
-      ["Max Cashout", "5.000 € oder 30x Einzahlung"]
-    ],
-    warnung: "Die Gewinnobergrenze auf dem Guthaben bleibt aktiv, auch nachdem die Umsatzbedingungen erfüllt sind.",
-    fs: "450 Freispiele."
+    link: "https://record.yoloaffiliates.com/_uBRw8iqSmSputv7iXV6HvmNd7ZgqdRLk/101/?payload=kneipenbonus",
+    bonus: "300% bis 200€",
+    tags: ["50 FS", "Instant Auszahlung", "Kein Code nötig"],
+    text: "300% Bonus auf deine Einzahlung bis zu 200€, dazu 50 Freispiele. Non-Sticky – deine Gewinne bleiben auszahlbar, solange der Bonus unberührt ist.",
+    schnell: "Auszahlungen laufen sofort. Bei Auszahlungen in Krypto sogar ganz ohne KYC – bei allen anderen Wegen gilt die übliche Verifizierung.",
+    fs: "50 Freispiele."
   },
 
   {
@@ -415,14 +417,22 @@ const CASINOS = [
   },
 
   {
-    name: "7ABet",
-    logo: "7abet.png",
+    name: "Oshi",
+    logo: "Oshi.png",
     typ:  "non-sticky",
-    link: "https://record.yoloaffiliates.com/_uBRw8iqSmSputv7iXV6HvmNd7ZgqdRLk/101/?payload=kneipenbonus",
-    bonus: "300% bis 200€",
-    tags: ["50 FS", "Kein Code nötig"],
-    text: "300% Bonus auf deine Einzahlung bis zu 200€, dazu 50 Freispiele. Non-Sticky – deine Gewinne bleiben auszahlbar, solange der Bonus unberührt ist.",
-    fs: "50 Freispiele."
+    link: "https://oshilinks.com/a69pafmcn",
+    bonus: "350% bis 4.000€",
+    tags: ["450 FS", "40x Wager"],
+    code: "WELCOME100",
+    text: "350% Bonus auf deine Einzahlung bis zu 4.000€, dazu 450 Freispiele. Non-Sticky – dein Echtgeld läuft zuerst.",
+    kond: [
+      ["Mindesteinzahlung", "20 €"],
+      ["Umsatz", "40x"],
+      ["Max Bet im Bonus", "5 €"],
+      ["Max Cashout", "5.000 € oder 30x Einzahlung"]
+    ],
+    warnung: "Die Gewinnobergrenze auf dem Guthaben bleibt aktiv, auch nachdem die Umsatzbedingungen erfüllt sind.",
+    fs: "450 Freispiele."
   },
 
   {
@@ -574,7 +584,7 @@ function zeichnen(){
   const q = feld.value.trim().toLowerCase();
   const treffer = CASINOS.filter(c => {
     const passt = filter === "alle" || c.typ === filter;
-    const text = [c.name, c.bonus, LABEL[c.typ], c.plus || "", c.fs || "", c.code || "", ...(c.tags || [])].join(" ").toLowerCase();
+    const text = [c.name, c.bonus, LABEL[c.typ], c.plus || "", c.fs || "", c.code || "", c.schnell || "", ...(c.tags || [])].join(" ").toLowerCase();
     return passt && (!q || text.includes(q));
   });
 
@@ -646,6 +656,10 @@ function zeichnen(){
             ${c.ohneEinzahlung ? `<div class="plus plus--fs">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
               <span><b>Ohne Einzahlung.</b> ${c.ohneEinzahlung}</span>
+            </div>` : ""}
+            ${c.schnell ? `<div class="blitz">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z"/></svg>
+              <span><b>Instant Auszahlung.</b> ${c.schnell}</span>
             </div>` : ""}
             ${c.fs ? `<div class="plus plus--fs">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.6 6.6L21 9.6l-4.8 4.4 1.3 6.6L12 17.4 6.5 20.6l1.3-6.6L3 9.6l6.4-1z"/></svg>
