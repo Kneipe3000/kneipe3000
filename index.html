@@ -126,6 +126,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .tag--bonus{background:rgba(245,165,36,.11);border-color:rgba(245,165,36,.26);color:var(--amber);font-weight:600}
 .tag--typ{background:rgba(61,214,140,.1);border-color:rgba(61,214,140,.25);color:var(--gruen)}
 .tag--typ.ist-sticky{background:rgba(255,122,107,.1);border-color:rgba(255,122,107,.25);color:var(--rot)}
+.tag-mit-label{display:inline-flex;flex-direction:column;align-items:center;gap:.2rem}
+.tag-mit-label small{font-size:.62rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--grau)}
 .aktion{display:flex;flex-direction:column;gap:.5rem;min-width:0}
 @media(min-width:800px){.aktion{min-width:225px}}
 .cta{display:block;padding:.95rem 1.7rem;border-radius:12px;background:var(--amber);color:#171003;
@@ -233,6 +235,19 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   border-radius:12px;padding:.9rem 1rem}
 .tipp b{display:block;font-size:.82rem;color:var(--text);margin-bottom:.3rem}
 .tipp p{font-size:.88rem}
+
+/* Ausgeschlossene Spiele */
+.spiele{margin-top:1.1rem;background:rgba(255,122,107,.07);border:1px solid rgba(255,122,107,.26);
+  border-radius:12px;padding:.85rem 1rem}
+.spiele summary{cursor:pointer;font-size:.85rem;font-weight:600;color:var(--rot);
+  list-style:none;display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.spiele summary::-webkit-details-marker{display:none}
+.spiele summary::after{content:"+";font-weight:700;color:var(--rot);transition:transform .2s}
+.spiele[open] summary::after{content:"–"}
+.spiele-liste{margin-top:.9rem;max-height:260px;overflow-y:auto;font-size:.82rem;color:var(--grau)}
+.spiele-liste ul{margin:0;padding-left:1.1rem;columns:2;column-gap:1.2rem}
+.spiele-liste li{margin-bottom:.3rem;break-inside:avoid}
+.spiele-liste p{margin:.8rem 0 0;color:var(--text);font-weight:600}
 
 /* leerer Zustand (Suche ohne Treffer) */
 .leer{text-align:center;padding:3.5rem 1.5rem;border:1px dashed var(--linie-2);border-radius:16px}
@@ -410,7 +425,9 @@ const CASINOS = [
     typ:  "non-sticky",
     link: "https://record.sc2707.com/_lQH-GBDSDLkfYomm1RTvxGNd7ZgqdRLk/101/?payload=kneipenbonus",
     bonus: "400% bis 500€",
-    tags: ["40x Wager", "Kein Max Cashout"],
+    bonusLabel: "1. Einzahlung",
+    bonusTags: [{ label: "2. Einzahlung", text: "200% bis 500€" }],
+    tags: ["40x Wager", "Kein Max Cashout", "Bonusbedingungen lesen"],
     text: "400% Bonus auf deine Einzahlung bis zu 500€. Zahle 100€ ein und spiele mit 500€.",
     plus: "Auf den Bonus gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
     kond: [
@@ -418,6 +435,23 @@ const CASINOS = [
       ["Umsatz", "40x"],
       ["Max Bet im Bonus", "5 €"],
       ["Max Cashout", "Kein Limit"]
+    ],
+    verboteneSpiele: [
+      "5 Lions", "5 Lions Gold", "Ankh of Anubis", "Betina Bingo", "Big Bad Wolf", "Black Mamba",
+      "Blood Suckers", "Castle Builder", "Castle Builder 2", "Celebration of Wealth", "Coins of Egypt",
+      "Cowboys Gold", "Creature from the Black Lagoon", "Dazzle Me", "Dead or Alive", "Dead or Alive 2",
+      "Demolition Squad", "Deuces Wild", "Devil's Delight", "Diamond Vortex", "Doom of Egypt", "Eggomatic",
+      "Feline Fury", "Forsaken Kingdom", "Fruit Shop", "Fruit Shop Christmas Edition", "Gold Volcano",
+      "Gonzo's Quest Megaways", "Greek Gods", "Guns N' Roses", "Hercules and Pegasus", "Holiday Season",
+      "Honey Rush", "Hook's Heroes", "Hope Diamond", "House of Doom", "Hugo 2", "Immortal Romance",
+      "Jackhammer 2", "Jimi Hendrix", "Jungle Spirit", "Koi Princess", "Legacy of Dead", "Legacy of Egypt",
+      "Leprechaun Riches", "Lost Relics", "Lucky Angler", "Max Damage Slot", "Money Train 2", "Moon Princess",
+      "Perfect Gems", "Pimped", "Planet Fortune", "Rainforest Magic", "Rainforest Magic Bingo", "Reactoonz",
+      "Reactoonz 2", "Riches of Robin", "Rise of Merlin", "Rise of Olympus", "Robin Hood - Shifting Riches",
+      "Royal Masquerade", "Safari King", "Sahara Nights", "Scrooge", "Secret of the Stones",
+      "Secrets of Atlantis", "Simsalabim", "Solar Queen", "Sweet Bonanza 1000", "Sweet Bonanza Candyland",
+      "Sweet Bonanza Dice", "Sweet Bonanza Xmas", "Temple of Wealth", "The Dog House", "The True Sheriff",
+      "Victorious", "Wanted Dead Or a Wild", "Wild O' Clock", "Wild Wild Riches", "Zombies"
     ]
   },
 
@@ -746,7 +780,8 @@ function zeichnen(){
         <div class="inhalt">
           <h3>${c.name}</h3>
           <div class="tags">
-            <span class="tag tag--bonus">${c.bonus}</span>
+            <span class="tag-mit-label">${c.bonusLabel ? `<small>${c.bonusLabel}</small>` : ""}<span class="tag tag--bonus">${c.bonus}</span></span>
+            ${(c.bonusTags || []).map(t => `<span class="tag-mit-label">${t.label ? `<small>${t.label}</small>` : ""}<span class="tag tag--bonus">${t.text}</span></span>`).join("")}
             <span class="tag tag--typ ${c.typ === "sticky" ? "ist-sticky" : ""}">${LABEL[c.typ]}</span>
             ${(c.starkeTags || []).map(t => `<span class="tag tag--stark">${t}</span>`).join("")}
             ${(c.tags || []).map(t => `<span class="tag">${t}</span>`).join("")}
@@ -778,6 +813,15 @@ function zeichnen(){
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
               <span><b>Kein Max Cashout.</b> ${c.plus}</span>
             </div>` : ""}
+            ${c.verboteneSpiele ? `<details class="spiele">
+              <summary>Ausgeschlossene Spiele im Bonus anzeigen</summary>
+              <div class="spiele-liste">
+                <ul>
+                  ${c.verboteneSpiele.map(s => `<li>${s}</li>`).join("")}
+                </ul>
+                <p>Zusätzlich sind alle Live- und Tischspiele ausgeschlossen.</p>
+              </div>
+            </details>` : ""}
             ${c.schritte ? `<ul class="schritte">
               ${c.schritte.map(([n, titel, rest]) =>
                 `<li><span class="punkt">${n}</span><span><b>${titel}:</b> ${rest}</span></li>`).join("")}
