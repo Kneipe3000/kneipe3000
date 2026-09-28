@@ -387,7 +387,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   padding:.32rem .6rem;border-radius:7px;border:1px solid var(--linie-2);
   background:rgba(255,255,255,.04);color:var(--grau);white-space:nowrap}
 .badge--non-sticky{background:rgba(61,214,140,.1);border-color:rgba(61,214,140,.35);color:var(--gruen)}
-.badge--sticky{background:rgba(255,122,107,.1);border-color:rgba(255,122,107,.35);color:var(--rot)}
+.badge--rot,.badge--sticky{background:rgba(255,122,107,.1);border-color:rgba(255,122,107,.35);color:var(--rot)}
 .zahlung{margin-top:.9rem}
 .zahlung small{display:block;font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
   color:var(--grau);margin-bottom:.4rem}
@@ -564,7 +564,7 @@ const CASINOS = [
     werte: { prozent: 400, max: 500,  maxBet: 5,    wager: 40, min: 20 },
     bonusLabel: "1. Einzahlung",
     bonusTags: [{ label: "2. Einzahlung", text: "200% bis 500€" }],
-    tags: ["Kein Max Cashout"],
+    tags: [{ text: "Bonusbedingungen lesen", rot: true }],
     warnung: "Bitte lies vor der Einzahlung die Bonusbedingungen.",
     echtgeldRegel: "Sobald du den Bonus aktivierst, gelten die Bonusbedingungen auch für dein Echtgeld. Setze also auch mit deinem eigenen Geld maximal 5 € pro Spin und spiele keines der ausgeschlossenen Spiele.",
     ohneUeber: true,        // "Über diesen Bonus" ausblenden
@@ -915,7 +915,7 @@ function zeichnen(){
             <div class="badges">
               <span class="badge badge--${c.typ}">${LABEL[c.typ]}</span>
               ${(c.bonusTags || []).map(t => `<span class="badge">${t.label ? t.label + ": " : ""}${t.text}</span>`).join("")}
-              ${(c.tags || []).map(t => `<span class="badge">${t}</span>`).join("")}
+              ${(c.tags || []).map(t => typeof t === "string" ? `<span class="badge">${t}</span>` : `<span class="badge${t.rot ? " badge--rot" : ""}">${t.text}</span>`).join("")}
             </div>
             ${(c.zahlung || []).length ? `<div class="zahlung">
               <small>Zahlungsmethoden</small>
