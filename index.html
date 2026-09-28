@@ -245,6 +245,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .warn svg{flex:none;margin-top:.15rem;color:var(--rot)}
 .warn span{font-size:.88rem;color:var(--grau)}
 .warn b{color:var(--rot);font-weight:700}
+.panel-inhalt>div>:first-child{margin-top:0}
+.warn .warn-rot{color:var(--rot);font-size:inherit}
 
 .tipp{margin-top:1.1rem;background:rgba(255,255,255,.03);border:1px solid var(--linie);
   border-radius:12px;padding:.9rem 1rem}
@@ -564,6 +566,9 @@ const CASINOS = [
     bonusTags: [{ label: "2. Einzahlung", text: "200% bis 500€" }],
     tags: ["Kein Max Cashout"],
     warnung: "Bitte lies vor der Einzahlung die Bonusbedingungen.",
+    echtgeldRegel: "Sobald du den Bonus aktivierst, gelten die Bonusbedingungen auch für dein Echtgeld. Setze also auch mit deinem eigenen Geld maximal 5 € pro Spin und spiele keines der ausgeschlossenen Spiele.",
+    ohneUeber: true,        // "Über diesen Bonus" ausblenden
+    ohneErklaerung: true,   // Sticky/Non-Sticky-Erklärung ausblenden
     text: "400% Bonus auf deine Einzahlung bis zu 500€. Zahle 100€ ein und spiele mit 500€.",
     plus: "Auf den Bonus gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
     kond: [
@@ -946,11 +951,15 @@ function zeichnen(){
       <div class="panel"><div>
         <div class="panel-inhalt">
           <div>
-            <h4>Über diesen Bonus</h4>
-            <p>${c.text}</p>
+            ${c.ohneUeber ? "" : `<h4>Über diesen Bonus</h4>
+            <p>${c.text}</p>`}
             ${c.plus ? `<div class="plus">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
               <span><b>Kein Max Cashout.</b> ${c.plus}</span>
+            </div>` : ""}
+            ${c.echtgeldRegel ? `<div class="warn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+              <span><b>Gilt auch für dein Echtgeld.</b> <span class="warn-rot">${c.echtgeldRegel}</span></span>
             </div>` : ""}
             ${c.verboteneSpiele ? `<details class="spiele">
               <summary>Ausgeschlossene Spiele im Bonus anzeigen</summary>
@@ -1002,9 +1011,9 @@ function zeichnen(){
             <ul class="kond">
               ${c.kond.map(([k, v]) => `<li><span>${k}</span><b>${v}</b></li>`).join("")}
             </ul>
-            <h4 style="margin-top:1.6rem">${LABEL[c.typ]} erklärt</h4>`
-            : `<h4>${LABEL[c.typ]} erklärt</h4>`}
-            <p>${ERKLAERUNG[c.typ]}</p>
+            ${c.ohneErklaerung ? "" : `<h4 style="margin-top:1.6rem">${LABEL[c.typ]} erklärt</h4>`}`
+            : (c.ohneErklaerung ? "" : `<h4>${LABEL[c.typ]} erklärt</h4>`)}
+            ${c.ohneErklaerung ? "" : `<p>${ERKLAERUNG[c.typ]}</p>`}
             ${c.warnung ? `<div class="warn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
               <span><b>Wichtig.</b> ${c.warnung}</span>
