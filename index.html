@@ -261,6 +261,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .spiele summary::-webkit-details-marker{display:none}
 .spiele summary::after{content:"+";font-weight:700;color:var(--rot);transition:transform .2s}
 .spiele[open] summary::after{content:"–"}
+.spiele-suche{display:flex;align-items:center;gap:.5rem;margin-top:.9rem;padding:0 .8rem;
+  background:var(--karte);border:1px solid rgba(255,122,107,.26);border-radius:10px;color:var(--grau);transition:border-color .2s}
+.spiele-suche:focus-within{border-color:var(--rot)}
+.spiele-suche svg{flex:none}
+.spiele-suche input{flex:1;min-width:0;background:none;border:0;color:var(--text);font:inherit;font-size:.85rem;padding:.6rem 0}
+.spiele-suche input:focus{outline:none}
+.spiele-suche input::placeholder{color:var(--grau)}
+.spiele-liste .spiele-leer{margin:0 0 .6rem;color:var(--grau);font-weight:500}
 .spiele-liste{margin-top:.9rem;max-height:260px;overflow-y:auto;font-size:.82rem;color:var(--grau)}
 .spiele-liste ul{margin:0;padding-left:1.1rem;columns:2;column-gap:1.2rem}
 .spiele-liste li{margin-bottom:.3rem;break-inside:avoid}
@@ -963,7 +971,12 @@ function zeichnen(){
             </div>` : ""}
             ${c.verboteneSpiele ? `<details class="spiele">
               <summary>Ausgeschlossene Spiele im Bonus anzeigen</summary>
+              <div class="spiele-suche">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.4-3.4"/></svg>
+                <input type="search" placeholder="Spiel suchen …" aria-label="Ausgeschlossenes Spiel suchen">
+              </div>
               <div class="spiele-liste">
+                <p class="spiele-leer" hidden>Kein Treffer in der Liste.</p>
                 <ul>
                   ${c.verboteneSpiele.map(s => `<li>${s}</li>`).join("")}
                 </ul>
@@ -1061,6 +1074,20 @@ function zeichnen(){
     a.addEventListener("click", () => {
       a.classList.remove("holo"); void a.offsetWidth; a.classList.add("holo");
       setTimeout(() => a.classList.remove("holo"), 900);
+    });
+  });
+
+  liste.querySelectorAll(".spiele-suche input").forEach(inp => {
+    inp.addEventListener("input", () => {
+      const q = inp.value.trim().toLowerCase();
+      const box = inp.closest(".spiele");
+      let anzahl = 0;
+      box.querySelectorAll(".spiele-liste li").forEach(li => {
+        const passt = li.textContent.toLowerCase().includes(q);
+        li.hidden = !passt;
+        if (passt) anzahl++;
+      });
+      box.querySelector(".spiele-leer").hidden = anzahl > 0;
     });
   });
 
