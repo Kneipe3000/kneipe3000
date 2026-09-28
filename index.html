@@ -5,28 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kneipenspieler – Casino Boni</title>
 <meta name="description" content="Handverlesene Casino-Boni vom Kneipenspieler. Nur ab 18.">
-<meta name="theme-color" content="#08090C">
+<meta name="theme-color" content="#060A12">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#08090C;
-  --karte:#0F1116;
-  --karte-hoch:#14171E;
-  --linie:rgba(255,255,255,.07);
-  --linie-2:rgba(255,255,255,.14);
-  --text:#F1F2F5;
-  --grau:#878E9E;
-  --amber:#F5A524;
-  --amber-tief:#8A5A08;
+  --bg:#060A12;
+  --karte:#0D121B;
+  --karte-hoch:#131A26;
+  --linie:rgba(160,200,255,.08);
+  --linie-2:rgba(160,200,255,.16);
+  --text:#EEF3FA;
+  --grau:#8A95A8;
+  --amber:#5CC8FA;
+  --amber-tief:#1E5A7A;
   --gruen:#3DD68C;
   --rot:#FF7A6B;
   --rand:clamp(1rem,5vw,2rem);
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--text);
+body{margin:0;background:radial-gradient(1100px 520px at 50% -8%,rgba(40,110,180,.22),transparent 65%) no-repeat,var(--bg);color:var(--text);
   font-family:"Inter",system-ui,-apple-system,sans-serif;line-height:1.6;
   -webkit-font-smoothing:antialiased;overflow-wrap:break-word}
 body.gesperrt{overflow:hidden}
@@ -35,7 +35,7 @@ a{color:inherit}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 :focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:6px}
-.wrap{max-width:960px;margin:0 auto;padding-left:var(--rand);padding-right:var(--rand)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--rand);padding-right:var(--rand)}
 
 /* ===== ALTERSPRÜFUNG ===== */
 #agegate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;
@@ -44,15 +44,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .gate{width:min(420px,100%);text-align:center;background:var(--karte);
   border:1px solid var(--linie);border-radius:20px;padding:clamp(1.8rem,6vw,2.5rem)}
 .gate-icon{display:grid;place-items:center;width:66px;height:66px;margin:0 auto 1.4rem;
-  border-radius:18px;background:rgba(245,165,36,.12);border:1px solid rgba(245,165,36,.28);
+  border-radius:18px;background:rgba(92,200,250,.12);border:1px solid rgba(92,200,250,.28);
   font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:1.2rem;color:var(--amber)}
 .gate h2{font-size:1.6rem;font-weight:800;margin-bottom:.8rem}
 .gate p{color:var(--grau);font-size:.94rem;margin:0 0 1.8rem}
 .btn{display:block;width:100%;padding:.95rem 1.2rem;border-radius:12px;
   font-weight:600;text-align:center;text-decoration:none;transition:background .18s,color .18s,border-color .18s}
 .btn+.btn{margin-top:.6rem}
-.btn--voll{background:var(--amber);color:#171003}
-.btn--voll:hover{background:#ffb43e}
+.btn--voll{background:var(--amber);color:#05121C}
+.btn--voll:hover{background:#8FDBFD}
 .btn--leer{border:1px solid var(--linie-2);color:var(--grau)}
 .btn--leer:hover{background:rgba(255,255,255,.04);color:var(--text)}
 .hilfe{text-align:left;background:rgba(255,122,107,.07);border:1px solid rgba(255,122,107,.22);
@@ -62,26 +62,41 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .hilfe a{color:var(--rot);font-weight:600}
 
 /* ===== KOPFZEILE ===== */
-.kopf{position:sticky;top:0;z-index:40;background:rgba(8,9,12,.8);
+.kopf{position:sticky;top:0;z-index:40;background:rgba(6,10,18,.78);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--linie)}
 .kopf .wrap{display:flex;align-items:center;gap:1rem;padding-top:.9rem;padding-bottom:.9rem}
 .marke{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:-.02em}
 .marke span{color:var(--amber)}
+.kopf-rechts{margin-left:auto;display:flex;align-items:center;gap:.6rem}
+.kopf .kopf-rechts .ab18{margin-left:0}
+@media(max-width:560px){
+  .kopf .wrap{flex-wrap:wrap;row-gap:.6rem}
+  .kopf-rechts{width:100%;justify-content:flex-end;padding-top:.55rem;border-top:1px solid var(--linie)}
+}
+.kopf-link{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--grau);
+  text-decoration:none;transition:color .2s}
+.kopf-link:hover{color:var(--amber)}
+.kopf-sozial{display:flex;align-items:center;gap:.35rem;margin-left:.4rem}
+.kopf-sozial a{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;
+  border:1px solid var(--linie);color:var(--grau);transition:color .2s,border-color .2s,background .2s}
+.kopf-sozial a:hover{color:var(--amber);border-color:rgba(92,200,250,.4);background:var(--karte-hoch)}
 .kopf .ab18{margin-left:auto;font-size:.7rem;font-weight:600;letter-spacing:.1em;color:var(--grau);
   border:1px solid var(--linie-2);padding:.25rem .6rem;border-radius:99px}
 
 /* ===== HERO ===== */
 .hero{text-align:center;padding-top:clamp(3rem,9vw,5rem);padding-bottom:clamp(2rem,5vw,3rem)}
 .pille{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--amber);background:rgba(245,165,36,.1);border:1px solid rgba(245,165,36,.25);
+  color:var(--amber);background:rgba(92,200,250,.1);border:1px solid rgba(92,200,250,.25);
   padding:.4rem .9rem;border-radius:99px;margin-bottom:1.6rem}
 .hero h1{font-size:clamp(2.2rem,8vw,4rem);font-weight:800}
 .hero h1 span{color:var(--amber)}
 .hero p{color:var(--grau);max-width:44ch;margin:1.2rem auto 0;font-size:clamp(.95rem,2.5vw,1.05rem)}
 
+
+
 /* ===== SUCHE + FILTER ===== */
 .steuerung{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.5rem;
-  padding-bottom:clamp(1.5rem,4vw,2.2rem)}
+  padding-top:clamp(1.5rem,4vw,2.5rem);padding-bottom:clamp(1.5rem,4vw,2.2rem)}
 .suche{display:flex;align-items:center;border:1px solid var(--linie);background:var(--karte);
   border-radius:99px;padding:.2rem;transition:border-color .2s}
 .suche.offen{border-color:var(--amber)}
@@ -98,21 +113,21 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   border:1px solid var(--linie);background:var(--karte);color:var(--grau);
   transition:border-color .2s,color .2s,background .2s}
 .chip:hover{border-color:var(--linie-2);color:var(--text)}
-.chip[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:#171003;font-weight:600}
+.chip[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:#05121C;font-weight:600}
 
 /* ===== DEAL-ZEILEN ===== */
 .liste{display:flex;flex-direction:column;gap:1.1rem;padding-bottom:clamp(3rem,8vw,5rem)}
 .deal{background:var(--karte);border:1px solid var(--linie);border-radius:18px;
   transition:border-color .2s,background .2s}
 .deal:hover{border-color:var(--linie-2);background:var(--karte-hoch)}
-.deal--top{border-color:rgba(245,165,36,.3)}
+.deal--top{border-color:rgba(92,200,250,.3)}
 .zeile{display:grid;gap:1.3rem;align-items:center;padding:clamp(1.3rem,3.5vw,1.9rem);
   grid-template-columns:1fr}
 @media(min-width:800px){.zeile{grid-template-columns:auto 1fr auto;gap:1.6rem}}
 .identitaet{display:flex;align-items:center;gap:1.15rem;min-width:0}
 .rang{width:30px;height:30px;flex:none;border-radius:9px;display:grid;place-items:center;
   font-size:.85rem;font-weight:700;background:rgba(255,255,255,.06);color:var(--grau)}
-.deal--top .rang{background:var(--amber);color:#171003}
+.deal--top .rang{background:var(--amber);color:#05121C}
 .logo,.logo-alt{width:80px;height:80px;flex:none;border-radius:18px;
   object-fit:contain;object-position:center;
   background:var(--karte-hoch);border:1px solid var(--linie-2);overflow:hidden}
@@ -123,17 +138,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .tags{display:flex;flex-wrap:wrap;align-items:flex-end;gap:.4rem}
 .tag{font-size:.82rem;font-weight:500;padding:.42rem .8rem;border-radius:9px;
   background:rgba(255,255,255,.05);border:1px solid var(--linie);color:var(--grau);white-space:nowrap}
-.tag--bonus{background:rgba(245,165,36,.11);border-color:rgba(245,165,36,.26);color:var(--amber);font-weight:600}
+.tag--bonus{background:rgba(92,200,250,.11);border-color:rgba(92,200,250,.26);color:var(--amber);font-weight:600}
 .tag--typ{background:rgba(61,214,140,.1);border-color:rgba(61,214,140,.25);color:var(--gruen)}
 .tag--typ.ist-sticky{background:rgba(255,122,107,.1);border-color:rgba(255,122,107,.25);color:var(--rot)}
 .tag-mit-label{display:inline-flex;flex-direction:column;align-items:center;gap:.2rem}
 .tag-mit-label small{font-size:.62rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--grau)}
 .aktion{display:flex;flex-direction:column;gap:.5rem;min-width:0}
 @media(min-width:800px){.aktion{min-width:225px}}
-.cta{display:block;padding:.95rem 1.7rem;border-radius:12px;background:var(--amber);color:#171003;
+.cta{display:block;padding:.95rem 1.7rem;border-radius:12px;background:linear-gradient(90deg,#4DC0F6,#AEE4FF);box-shadow:0 8px 28px -10px rgba(92,200,250,.6);color:#05121C;
   font-weight:700;font-size:.95rem;text-align:center;text-decoration:none;white-space:nowrap;
   transition:background .18s}
-.cta:hover{background:#ffb43e}
+.cta:hover{background:linear-gradient(90deg,#6ACDF8,#C4ECFF)}
 .details-knopf{display:flex;align-items:center;justify-content:center;gap:.45rem;width:100%;
   padding:.6rem 1rem;border-radius:11px;border:1px solid var(--linie);
   font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--grau);
@@ -156,23 +171,23 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .schritte li{display:flex;gap:.7rem;font-size:.92rem;color:var(--grau)}
 .schritte b{color:var(--text);font-weight:600}
 .punkt{min-width:20px;padding:0 4px;height:20px;flex:none;border-radius:6px;margin-top:.18rem;display:grid;place-items:center;
-  font-size:.68rem;font-weight:700;background:rgba(245,165,36,.12);color:var(--amber)}
+  font-size:.68rem;font-weight:700;background:rgba(92,200,250,.12);color:var(--amber)}
 .plus{display:flex;align-items:flex-start;gap:.6rem;margin-top:1rem;
   background:rgba(61,214,140,.08);border:1px solid rgba(61,214,140,.28);
   border-radius:12px;padding:.8rem .95rem}
 .plus svg{flex:none;margin-top:.15rem;color:var(--gruen)}
 .plus span{font-size:.9rem;color:var(--text)}
 .plus b{color:var(--gruen);font-weight:700}
-.plus--fs{background:rgba(245,165,36,.09);border-color:rgba(245,165,36,.3)}
+.plus--fs{background:rgba(92,200,250,.09);border-color:rgba(92,200,250,.3)}
 .plus--fs svg{color:var(--amber)}
 .plus--fs b{color:var(--amber)}
 /* Hervorgehobene Top-Karte */
-.deal--stern{border-color:rgba(245,165,36,.5);
-  background:linear-gradient(160deg,rgba(245,165,36,.07),var(--karte) 55%);
-  box-shadow:0 0 0 1px rgba(245,165,36,.12),0 18px 50px -18px rgba(245,165,36,.35)}
-.deal--stern:hover{border-color:rgba(245,165,36,.75)}
+.deal--stern{border-color:rgba(92,200,250,.5);
+  background:linear-gradient(160deg,rgba(92,200,250,.07),transparent 55%),var(--karte);
+  box-shadow:0 0 0 1px rgba(92,200,250,.12),0 18px 50px -18px rgba(92,200,250,.35)}
+.deal--stern:hover{border-color:transparent}
 .band{display:flex;align-items:center;gap:.45rem;
-  background:linear-gradient(90deg,var(--amber),#ffcf6b);color:#171003;
+  background:linear-gradient(90deg,var(--amber),#B8EAFF);color:#05121C;
   font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
   padding:.45rem clamp(1.3rem,3.5vw,1.9rem);border-radius:17px 17px 0 0}
 .band svg{flex:none}
@@ -187,14 +202,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .code-wofuer{display:block;font-size:.72rem;color:var(--grau);margin-bottom:.35rem}
 .code-gruppe+.code-gruppe{margin-top:.9rem}
 .code-knopf{display:inline-flex;align-items:center;gap:.6rem;
-  background:rgba(245,165,36,.09);border:1px dashed rgba(245,165,36,.45);
+  background:rgba(92,200,250,.09);border:1px dashed rgba(92,200,250,.45);
   border-radius:11px;padding:.6rem 1rem;color:var(--amber);
   font-family:ui-monospace,"SF Mono",monospace;font-weight:700;font-size:1rem;
   letter-spacing:.08em;transition:background .2s,border-color .2s,color .2s}
-.code-knopf:hover{background:rgba(245,165,36,.16);border-color:var(--amber)}
+.code-knopf:hover{background:rgba(92,200,250,.16);border-color:var(--amber)}
 .code-knopf.kopiert{background:rgba(61,214,140,.12);border-color:rgba(61,214,140,.5);color:var(--gruen)}
 .code-knopf svg{flex:none}
-.tag--code{background:rgba(245,165,36,.11);border-color:rgba(245,165,36,.26);color:var(--amber);
+.tag--code{background:rgba(92,200,250,.11);border-color:rgba(92,200,250,.26);color:var(--amber);
   font-family:ui-monospace,monospace;font-weight:700}
 .tag.kopieren{display:inline-flex;align-items:center;gap:.4rem;cursor:pointer;
   transition:background .18s,border-color .18s,color .18s,transform .12s}
@@ -204,7 +219,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   font-size:.74rem;color:var(--grau)}
 .code-hinweis svg{flex:none;color:var(--amber);opacity:.8}
 .code-info{margin:.5rem 0 0!important;font-size:.85rem;color:var(--grau);max-width:46ch}
-.tag.kopieren:hover{background:rgba(245,165,36,.2);border-color:var(--amber)}
+.tag.kopieren:hover{background:rgba(92,200,250,.2);border-color:var(--amber)}
 .tag.kopieren.kopiert{background:rgba(61,214,140,.15);border-color:rgba(61,214,140,.5);
   color:var(--gruen)}
 
@@ -252,14 +267,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* leerer Zustand (Suche ohne Treffer) */
 .leer{text-align:center;padding:3.5rem 1.5rem;border:1px dashed var(--linie-2);border-radius:16px}
 .leer p{margin:0 0 1.2rem;color:var(--grau)}
-.leer button{font-size:.85rem;font-weight:600;color:#171003;background:var(--amber);
+.leer button{font-size:.85rem;font-weight:600;color:#05121C;background:var(--amber);
   padding:.6rem 1.3rem;border-radius:99px}
 
 /* Pause-Zustand: aktuell gar keine Deals online */
 .pause{text-align:center;background:var(--karte);border:1px solid var(--linie);
   border-radius:20px;padding:clamp(2.2rem,7vw,3.5rem) clamp(1.2rem,5vw,2.5rem)}
 .pause-icon{display:grid;place-items:center;width:74px;height:74px;margin:0 auto 1.6rem;
-  border-radius:22px;background:rgba(245,165,36,.1);border:1px solid rgba(245,165,36,.25);
+  border-radius:22px;background:rgba(92,200,250,.1);border:1px solid rgba(92,200,250,.25);
   color:var(--amber)}
 .pause-pille{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;font-weight:600;
   letter-spacing:.12em;text-transform:uppercase;color:var(--grau);
@@ -283,7 +298,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .pause-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:600;
   padding:.65rem 1.2rem;border-radius:99px;text-decoration:none;
   border:1px solid var(--linie-2);color:var(--text);transition:border-color .2s,background .2s,color .2s}
-.pause-link:hover{border-color:var(--amber);color:var(--amber);background:rgba(245,165,36,.06)}
+.pause-link:hover{border-color:var(--amber);color:var(--amber);background:rgba(92,200,250,.06)}
 
 /* ===== FUSSZEILE ===== */
 .fuss{border-top:1px solid var(--linie);padding-top:clamp(2rem,5vw,3rem);padding-bottom:clamp(2rem,5vw,3rem);
@@ -300,14 +315,120 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .sozial a,.hoch{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;
   border:1px solid var(--linie);color:var(--grau);background:var(--karte);
   transition:color .2s,border-color .2s,background .2s}
-.sozial a:hover,.hoch:hover{color:var(--amber);border-color:rgba(245,165,36,.4);background:var(--karte-hoch)}
+.sozial a:hover,.hoch:hover{color:var(--amber);border-color:rgba(92,200,250,.4);background:var(--karte-hoch)}
 .trenner{width:1px;height:24px;background:var(--linie);margin:0 .2rem}
 .fuss p{margin:0;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
-  color:rgba(135,142,158,.65)}
+  color:rgba(138,149,168,.65)}
 .fuss-hinweis{gap:.35rem}
-.fuss-fein{font-size:.66rem;color:rgba(135,142,158,.55)}
-.fuss a.link{color:rgba(135,142,158,.85);text-decoration:none}
+.fuss-fein{font-size:.66rem;color:rgba(138,149,168,.55)}
+.fuss a.link{color:rgba(138,149,168,.85);text-decoration:none}
 .fuss a.link:hover{color:var(--amber)}
+
+/* ===== BONUSRECHNER ===== */
+.intro{text-align:center;padding-top:clamp(2rem,6vw,3.5rem)}
+.intro h1{font-size:clamp(1.7rem,5vw,2.6rem);font-weight:800}
+.intro p{color:var(--grau);max-width:46ch;margin:.8rem auto 0;font-size:clamp(.92rem,2.3vw,1rem)}
+.sozial-knoepfe{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:clamp(1.5rem,4vw,2.5rem)}
+.sk{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1.05rem;border-radius:10px;
+  color:#fff;text-decoration:none;font-weight:800;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;
+  transition:filter .2s,transform .15s}
+.sk:hover{filter:brightness(1.12)}
+.sk:active{transform:scale(.97)}
+.sk svg{flex:none;width:14px;height:14px}
+.sk--insta{background:linear-gradient(45deg,#F58529,#DD2A7B 50%,#8134AF 80%,#515BD4)}
+.sk--twitch{background:#9146FF}
+.sk--discord{background:#5865F2}
+.rechner{margin-top:1rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem 1.5rem;
+  background:var(--karte);border:1px solid var(--linie);border-radius:18px;
+  padding:1.1rem clamp(1.1rem,3vw,1.5rem);margin-bottom:1.1rem}
+.rechner-titel b{display:block;font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:1.05rem}
+.rechner-titel span{font-size:.85rem;color:var(--grau)}
+.rechner-wahl{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.betrag{font-size:.85rem;font-weight:600;padding:.55rem 1rem;border-radius:10px;
+  border:1px solid var(--linie);background:var(--karte-hoch);color:var(--grau);
+  transition:border-color .2s,color .2s,background .2s}
+.betrag:hover{border-color:var(--linie-2);color:var(--text)}
+.betrag[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:#05121C}
+.betrag-eigen{display:flex;align-items:center;gap:.3rem;border:1px solid var(--linie);border-radius:10px;
+  background:var(--karte-hoch);padding:0 .8rem;transition:border-color .2s}
+.betrag-eigen:focus-within{border-color:var(--amber)}
+.betrag-eigen input{width:4.5rem;background:none;border:0;color:var(--text);font:inherit;font-size:.85rem;padding:.55rem 0}
+.betrag-eigen input:focus{outline:none}
+.betrag-eigen input::placeholder{color:var(--grau)}
+.betrag-eigen span{font-size:.85rem;color:var(--grau)}
+
+/* ===== KARTEN (neues Layout) ===== */
+.karte-oben{display:grid;grid-template-columns:1fr}
+@media(min-width:900px){.karte-oben{grid-template-columns:200px minmax(0,1fr)}}
+.spalte-logo{display:flex;align-items:center;gap:1rem;padding:1.2rem clamp(1.1rem,3vw,1.5rem);
+  border-bottom:1px solid var(--linie)}
+@media(min-width:900px){.spalte-logo{flex-direction:column;justify-content:center;gap:.9rem;
+  border-bottom:0;border-right:1px solid var(--linie);padding:1.5rem}}
+.rang-badge{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:.9rem;
+  padding:.4rem .8rem;border-radius:10px;background:var(--karte-hoch);border:1px solid var(--linie-2);flex:none}
+.deal--stern .rang-badge{background:var(--amber);border-color:var(--amber);color:#05121C}
+.logo-gross{width:150px;max-width:100%;height:84px;border-radius:14px;background:var(--karte-hoch);
+  border:1px solid var(--linie-2);object-fit:contain;padding:.7rem}
+.logo-ersatz{display:grid;place-items:center;font-family:"Plus Jakarta Sans",sans-serif;
+  font-weight:800;font-size:1.8rem;color:var(--amber)}
+.spalte-haupt{display:grid;gap:1.4rem;padding:1.4rem clamp(1.1rem,3vw,1.6rem);align-items:center}
+@media(min-width:1050px){.spalte-haupt{grid-template-columns:minmax(0,1fr) auto 210px;gap:1.8rem}}
+.info h3{font-size:1.3rem;font-weight:800;margin-bottom:.7rem}
+.badges{display:flex;flex-wrap:wrap;gap:.35rem}
+.badge{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:.32rem .6rem;border-radius:7px;border:1px solid var(--linie-2);
+  background:rgba(255,255,255,.04);color:var(--grau);white-space:nowrap}
+.badge--non-sticky{background:rgba(61,214,140,.1);border-color:rgba(61,214,140,.35);color:var(--gruen)}
+.badge--sticky{background:rgba(255,122,107,.1);border-color:rgba(255,122,107,.35);color:var(--rot)}
+.zahlung{margin-top:.9rem}
+.zahlung small{display:block;font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grau);margin-bottom:.4rem}
+.zahlung div{display:flex;flex-wrap:wrap;gap:.35rem}
+.zahlung span{font-size:.74rem;padding:.3rem .6rem;border-radius:7px;background:var(--karte-hoch);
+  border:1px solid var(--linie-2);color:var(--text)}
+.werte{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem 1.4rem}
+@media(min-width:560px){.werte{grid-template-columns:repeat(4,auto);justify-content:start}}
+.wert b{display:block;font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;
+  font-size:1.75rem;line-height:1;letter-spacing:-.03em;white-space:nowrap}
+.wert--akzent b{color:var(--amber)}
+.wert span{display:block;margin-top:.4rem;font-size:.62rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--grau);white-space:nowrap}
+.spalte-haupt .aktion{min-width:0}
+.aktion-label{font-size:.66rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--grau);text-align:center}
+.code-chips{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center}
+.unterm{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:.3rem .8rem;
+  border-top:1px solid var(--linie);padding:.95rem 1.4rem;text-align:center}
+.unterm small{font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+.unterm b{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:-.02em}
+.unterm span{font-size:.85rem;color:var(--text)}
+.unterm em{font-style:normal;font-size:.75rem;color:var(--grau)}
+.unterm .zu-wenig{color:var(--grau)}
+
+/* ===== HOLOGRAMM ===== */
+@property --holo-winkel{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes holo-drehen{to{--holo-winkel:360deg}}
+.deal--stern{position:relative;border-color:transparent}
+.deal--stern::before{content:"";position:absolute;inset:-1px;border-radius:19px;padding:2px;pointer-events:none;z-index:2;
+  background:conic-gradient(from var(--holo-winkel),#5CC8FA,#A98BFF,#FF8AD8,#FFE08A,#7DFFCB,#5CC8FA);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  animation:holo-drehen 6s linear infinite}
+.deal--stern::after{content:"";position:absolute;inset:-1px;border-radius:19px;pointer-events:none;z-index:-1;
+  background:conic-gradient(from var(--holo-winkel),#5CC8FA,#A98BFF,#FF8AD8,#FFE08A,#7DFFCB,#5CC8FA);
+  filter:blur(18px);opacity:.28;animation:holo-drehen 6s linear infinite}
+.liste{isolation:isolate}
+
+.cta{position:relative;overflow:hidden;isolation:isolate;transition:background .18s,transform .15s}
+.cta::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;opacity:0;
+  background:linear-gradient(115deg,transparent 15%,rgba(255,130,220,.75) 32%,rgba(130,255,215,.75) 44%,
+    rgba(255,236,140,.75) 56%,rgba(150,160,255,.75) 68%,transparent 85%);
+  background-size:260% 100%;background-position:120% 0;transition:opacity .25s}
+.cta:hover::after{opacity:1;animation:holo-schimmer 1.6s linear infinite}
+.cta:active{transform:scale(.97)}
+.cta.holo::after{opacity:1;animation:holo-schimmer .8s ease-out 1}
+.cta.holo{box-shadow:0 0 0 2px rgba(255,255,255,.5),0 0 34px 4px rgba(169,139,255,.55),0 0 60px 8px rgba(92,200,250,.35)}
+@keyframes holo-schimmer{from{background-position:120% 0}to{background-position:-120% 0}}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
@@ -319,7 +440,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ===== ALTERSPRÜFUNG (bei jedem Besuch) ===== -->
 <div id="agegate" role="dialog" aria-modal="true" aria-labelledby="gate-titel">
   <div class="gate" id="gate">
-    <div class="gate-icon" aria-hidden="true">18+</div>
     <h2 id="gate-titel">Altersprüfung</h2>
     <p>Glücksspiel kann süchtig machen. Bitte bestätige, dass du mindestens 18 Jahre alt bist.</p>
     <button class="btn btn--voll" id="ja">Ich bin über 18</button>
@@ -331,30 +451,54 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <header class="kopf">
   <div class="wrap">
     <div class="marke">kneipen<span>spieler</span></div>
-    <span class="ab18">18+</span>
+    <nav class="kopf-sozial" aria-label="Social Media">
+      <a href="https://www.instagram.com/kneipenspieler/" target="_blank" rel="noopener" aria-label="Kneipenspieler auf Instagram">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.twitch.tv/kneipenspieler" target="_blank" rel="noopener" aria-label="Kneipenspieler auf Twitch">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 3h16v11l-4 4h-3.5L9 21H8v-3H4z"/><path d="M11 8v4M15 8v4" stroke-linecap="round"/></svg>
+      </a>
+      <a href="https://discord.gg/H9QfD7qXX" id="discord-link" target="_blank" rel="noopener" aria-label="Kneipenspieler auf Discord">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 5.3A17.4 17.4 0 0 0 15.3 4l-.55 1.1a16 16 0 0 0-5.5 0L8.7 4a17.4 17.4 0 0 0-4.3 1.3C1.7 9.4 1 13.4 1.3 17.3a17.6 17.6 0 0 0 5.3 2.7l1.1-1.8a11.3 11.3 0 0 1-1.8-.9l.45-.34a12.5 12.5 0 0 0 11.3 0l.45.34c-.57.34-1.17.64-1.8.9l1.1 1.8a17.5 17.5 0 0 0 5.3-2.7c.43-4.5-.73-8.5-3.1-12zM8.5 14.9c-1.05 0-1.9-.96-1.9-2.15s.83-2.15 1.9-2.15 1.92.97 1.9 2.15c0 1.19-.84 2.15-1.9 2.15zm7 0c-1.05 0-1.9-.96-1.9-2.15s.83-2.15 1.9-2.15 1.92.97 1.9 2.15c0 1.19-.83 2.15-1.9 2.15z"/></svg>
+      </a>
+    </nav>
+    <div class="kopf-rechts">
+      <span class="ab18">18+</span>
+      <a class="kopf-link" href="https://www.check-dein-spiel.de" target="_blank" rel="noopener">Spielverantwortung</a>
+    </div>
   </div>
 </header>
 
-<!-- ===== HERO ===== -->
-<section class="wrap hero">
-  <span class="pille" id="hero-pille">Exklusive Deals 2026</span>
-  <h1>Boni, die sich<br><span>wirklich lohnen</span></h1>
-  <p id="hero-text">Keine endlose Liste. Nur die Casinos, die ich selbst spiele – mit dem Bonus, den ich für euch rausgeholt habe.</p>
+<!-- ===== BONUSRECHNER ===== -->
+<!-- ===== INTRO ===== -->
+<section class="wrap intro">
+  <h1>Meine Top Casinos</h1>
+  <p>Keine endlose Liste. Nur die Casinos, die ich selbst spiele – mit dem Bonus, den ich für euch rausgeholt habe.</p>
 </section>
 
-<!-- ===== SUCHE + FILTER ===== -->
-<div class="wrap steuerung">
-  <div class="suche" id="suche">
-    <button class="lupe" id="lupe" aria-label="Suche öffnen" aria-expanded="false" aria-controls="suchfeld">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-        <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.9-3.9"/>
-      </svg>
-    </button>
-    <input class="suchfeld" id="suchfeld" type="search" placeholder="Casino suchen…" aria-label="Casino suchen">
-  </div>
-  <button class="chip" data-filter="alle" aria-pressed="true">Alle</button>
-  <button class="chip" data-filter="non-sticky" aria-pressed="false">Non-Sticky</button>
-  <button class="chip" data-filter="sticky" aria-pressed="false">Sticky</button>
+<div class="wrap sozial-knoepfe">
+  <a class="sk sk--insta" href="https://www.instagram.com/kneipenspieler/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor" stroke="none"/></svg>Instagram</a>
+  <a class="sk sk--twitch" href="https://www.twitch.tv/kneipenspieler" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M4 3h16v11l-4 4h-3.5L9 21H8v-3H4z"/><path d="M11 8v4M15 8v4" stroke-linecap="round"/></svg>Twitch</a>
+  <a class="sk sk--discord" href="https://discord.gg/H9QfD7qXX" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 5.3A17.4 17.4 0 0 0 15.3 4l-.55 1.1a16 16 0 0 0-5.5 0L8.7 4a17.4 17.4 0 0 0-4.3 1.3C1.7 9.4 1 13.4 1.3 17.3a17.6 17.6 0 0 0 5.3 2.7l1.1-1.8a11.3 11.3 0 0 1-1.8-.9l.45-.34a12.5 12.5 0 0 0 11.3 0l.45.34c-.57.34-1.17.64-1.8.9l1.1 1.8a17.5 17.5 0 0 0 5.3-2.7c.43-4.5-.73-8.5-3.1-12zM8.5 14.9c-1.05 0-1.9-.96-1.9-2.15s.83-2.15 1.9-2.15 1.92.97 1.9 2.15c0 1.19-.84 2.15-1.9 2.15zm7 0c-1.05 0-1.9-.96-1.9-2.15s.83-2.15 1.9-2.15 1.92.97 1.9 2.15c0 1.19-.83 2.15-1.9 2.15z"/></svg>Discord</a>
+</div>
+
+<div class="wrap" id="rechner-wrap">
+  <section class="rechner" aria-label="Bonusrechner">
+    <div class="rechner-titel">
+      <b>Bonusrechner</b>
+    </div>
+    <div class="rechner-wahl">
+      <button class="betrag" data-betrag="20" aria-pressed="false">20 €</button>
+      <button class="betrag" data-betrag="50" aria-pressed="false">50 €</button>
+      <button class="betrag" data-betrag="100" aria-pressed="true">100 €</button>
+      <button class="betrag" data-betrag="200" aria-pressed="false">200 €</button>
+      <button class="betrag" data-betrag="500" aria-pressed="false">500 €</button>
+      <label class="betrag-eigen">
+        <input id="betrag-eigen" type="text" inputmode="decimal" placeholder="Eigener" aria-label="Eigener Einzahlungsbetrag in Euro">
+        <span>€</span>
+      </label>
+    </div>
+  </section>
 </div>
 
 <!-- ===== DEALS ===== -->
@@ -364,31 +508,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <footer class="wrap fuss">
   <div class="fuss-block">
     <div class="marke">kneipen<span>spieler</span></div>
-    <div class="fuss-klein">Deals &amp; Boni · 2026</div>
     <div class="fuss-klein fuss-fein">Enthält Affiliate-Links</div>
   </div>
 
   <div class="sozial">
-    <a href="https://www.instagram.com/kneipenspieler/" target="_blank" rel="noopener" aria-label="Kneipenspieler auf Instagram">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/>
-        <circle cx="12" cy="12" r="4.2"/>
-        <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/>
-      </svg>
-    </a>
-    <a href="https://www.twitch.tv/kneipenspieler" target="_blank" rel="noopener" aria-label="Kneipenspieler auf Twitch">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
-        <path d="M4 3h16v11l-4 4h-3.5L9 21H8v-3H4z"/>
-        <path d="M11 8v4M15 8v4" stroke-linecap="round"/>
-      </svg>
-    </a>
-    <a href="https://www.youtube.com/@Kneipenspieler" target="_blank" rel="noopener" aria-label="Kneipenspieler auf YouTube">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
-        <rect x="2.5" y="5" width="19" height="14" rx="4.5"/>
-        <path d="M10.3 9.2l4.6 2.8-4.6 2.8z" fill="currentColor" stroke="none"/>
-      </svg>
-    </a>
-    <span class="trenner" aria-hidden="true"></span>
     <button class="hoch" id="hoch" aria-label="Nach oben">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>
     </button>
@@ -396,7 +519,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
   <div class="fuss-block fuss-hinweis">
     <p>Glücksspiel kann süchtig machen.</p>
-    <p>18+ · <a class="link" href="https://www.check-dein-spiel.de" target="_blank" rel="noopener">Spielverantwortung</a></p>
   </div>
 </footer>
 
@@ -417,6 +539,10 @@ const CASINOS = [
   // codes       : [["Wofuer", "CODE"], ...] beliebig viele
   // ohneEinzahlung : goldene Box "ohne Einzahlung"
   // kond        : Konditionen fuer die rechte Spalte
+  // werte       : Zahlen fuer Karte + Bonusrechner
+  //               prozent, max (null = kein Limit), maxBet (null = keins),
+  //               wager, min (Mindesteinzahlung, null = keine)
+  // zahlung     : ["Krypto", "Visa", ...] optional, zeigt Zahlungsmethoden
   // ------------------------------------------------------------
 
 {
@@ -426,9 +552,11 @@ const CASINOS = [
     stern: true,
     link: "https://record.sc2707.com/_lQH-GBDSDLkfYomm1RTvxGNd7ZgqdRLk/101/?payload=kneipenbonus",
     bonus: "400% bis 500€",
+    werte: { prozent: 400, max: 500,  maxBet: 5,    wager: 40, min: 20 },
     bonusLabel: "1. Einzahlung",
     bonusTags: [{ label: "2. Einzahlung", text: "200% bis 500€" }],
-    tags: ["40x Wager", "Kein Max Cashout", "Bonusbedingungen lesen"],
+    tags: ["Kein Max Cashout"],
+    warnung: "Bitte lies vor der Einzahlung die Bonusbedingungen.",
     text: "400% Bonus auf deine Einzahlung bis zu 500€. Zahle 100€ ein und spiele mit 500€.",
     plus: "Auf den Bonus gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
     kond: [
@@ -462,8 +590,9 @@ const CASINOS = [
     typ:  "non-sticky",
     stern: true,
     link: "https://record.yoloaffiliates.com/_uBRw8iqSmSputv7iXV6HvmNd7ZgqdRLk/101/?payload=kneipenbonus",
-    bonus: "200%",
-    tags: ["40x Wager", "Krypto Instant Auszahlung", "Krypto keine KYC"],
+    bonus: "200% bis 200€",
+    werte: { prozent: 200, max: 200,  maxBet: 5,    wager: 40, min: null },
+    tags: ["Krypto Instant Auszahlung"],
     text: "200% Bonus auf deine Einzahlung, non-sticky.",
     kyc: "Auszahlung per Krypto ist sofort möglich, ganz ohne KYC-Prüfung. Kryptoeinzahlungen lassen sich auch aufs Bankkonto auszahlen.",
     kond: [
@@ -479,7 +608,8 @@ const CASINOS = [
     typ:  "sticky",
     link: "https://crocoslotsmedia.com/actejjgtd",
     bonus: "300% bis 200€",
-    tags: ["200 FS", "45x Wager"],
+    werte: { prozent: 300, max: 200,  maxBet: 5,    wager: 45, min: 50 },
+    tags: ["200 FS"],
     codes: [
       { kurz:"Bonus", wofuer:"Einzahlungsbonus – 300%", code:"CS300",
         info:"Diesen Code brauchst du bei deiner Einzahlung, damit die 300% gutgeschrieben werden. Ohne den Code gibt es keinen Bonus." },
@@ -503,7 +633,8 @@ const CASINOS = [
     typ:  "sticky",
     link: "https://www.bitkingzmedia.com/af7wmbpuo",
     bonus: "300% bis 200€",
-    tags: ["200 FS", "45x Wager"],
+    werte: { prozent: 300, max: 200,  maxBet: 5,    wager: 45, min: 50 },
+    tags: ["200 FS"],
     codes: [
       { kurz:"Bonus", wofuer:"Einzahlungsbonus – 300%", code:"BK300",
         info:"Diesen Code brauchst du bei deiner Einzahlung, damit die 300% gutgeschrieben werden. Ohne den Code gibt es keinen Bonus." },
@@ -527,7 +658,8 @@ const CASINOS = [
     typ:  "non-sticky",
     link: "https://go.freshaffs.com/visit/?bta=49169&nci=6119&afp=kneipenbonus_6119&utm_campaign=kneipenbonus",
     bonus: "150% bis 500€",
-    tags: ["100 FS ohne Einzahlung", "30x Wager"],
+    werte: { prozent: 150, max: 500,  maxBet: 5,    wager: 30, min: 20 },
+    tags: ["100 FS ohne Einzahlung"],
     codes: [
       { kurz:"Bonus + FS", wofuer:"Einzahlungsbonus & Freispiele", code:"FB100",
         info:"Ein Code für beides: Er schaltet den 150%-Einzahlungsbonus frei und gleichzeitig die 100 Freispiele, für die du nichts einzahlen musst. Gib ihn bei der Registrierung an." }
@@ -550,7 +682,8 @@ const CASINOS = [
     typ:  "non-sticky",
     link: "https://glzz.myloric.com/?mid=301835_2250308&clickid=kneipenbonus-SB10435",
     bonus: "100% bis 2.000€",
-    tags: ["40x Wager", "Kein Max Cashout"],
+    werte: { prozent: 100, max: 2000, maxBet: null, wager: 40, min: null },
+    tags: ["Kein Max Cashout"],
     text: "100% Bonus auf deine Einzahlung bis zu 2.000€.",
     plus: "Auf den Bonus gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
     kond: [
@@ -564,8 +697,9 @@ const CASINOS = [
     logo: "Golisimo.png",
     typ:  "non-sticky",
     link: "https://gls.lynnar.com/?mid=315090_2128649&clickid=kneipenbonus-SB5661",
-    bonus: "200%",
-    tags: ["40x Wager", "Kein Max Cashout", "Keine KYC", "Nur Schweiz"],
+    bonus: "200% bis 1.000€",
+    werte: { prozent: 200, max: 1000, maxBet: 100,  wager: 40, min: 50 },
+    tags: ["Kein Max Cashout", "Nur Schweiz"],
     text: "200% Bonus auf deine Einzahlung, ohne KYC-Prüfung.",
     plus: "Auf den Bonus gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
     warnung: "Nur verfügbar aus der Schweiz.",
@@ -582,8 +716,9 @@ const CASINOS = [
     logo: "Legiano.png",
     typ:  "non-sticky",
     link: "https://lgno.monalvor.com/?mid=103181_2150117&clickid=kneipenbonus-SB6115",
-    bonus: "200%",
-    tags: ["40x Wager", "Kein Max Cashout", "Keine KYC", "Nur Schweiz"],
+    bonus: "200% bis 1.000€",
+    werte: { prozent: 200, max: 1000, maxBet: 100,  wager: 40, min: 50 },
+    tags: ["Kein Max Cashout", "Nur Schweiz"],
     text: "200% Bonus auf deine Einzahlung, ohne KYC-Prüfung.",
     plus: "Auf den Bonus gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
     warnung: "Nur verfügbar aus der Schweiz.",
@@ -600,8 +735,9 @@ const CASINOS = [
     logo: "Dudespin.png",
     typ:  "non-sticky",
     link: "https://ddspn.lynmonkel.com/?mid=95901_2165455&clickid=kneipenbonus-SB7085",
-    bonus: "200%",
-    tags: ["40x Wager", "Kein Max Cashout", "Keine KYC", "Nur Schweiz"],
+    bonus: "200% bis 1.000€",
+    werte: { prozent: 200, max: 1000, maxBet: 100,  wager: 40, min: 50 },
+    tags: ["Kein Max Cashout", "Nur Schweiz"],
     text: "200% Bonus auf deine Einzahlung, ohne KYC-Prüfung.",
     plus: "Auf den Bonus gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
     warnung: "Nur verfügbar aus der Schweiz.",
@@ -618,8 +754,9 @@ const CASINOS = [
     logo: "Bankonbet.png",
     typ:  "non-sticky",
     link: "https://bnkw.monalvor.com/?mid=103181_2077799&clickid=kneipenbonus-SB4821",
-    bonus: "200%",
-    tags: ["40x Wager", "Kein Max Cashout", "Keine KYC", "Nur Schweiz"],
+    bonus: "200% bis 1.000€",
+    werte: { prozent: 200, max: 1000, maxBet: 100,  wager: 40, min: 50 },
+    tags: ["Kein Max Cashout", "Nur Schweiz"],
     text: "200% Bonus auf deine Einzahlung, ohne KYC-Prüfung.",
     plus: "Auf den Bonus gibt es keine Auszahlungsgrenze – deine Gewinne sind nicht nach oben begrenzt.",
     warnung: "Nur verfügbar aus der Schweiz.",
@@ -706,65 +843,51 @@ document.getElementById("nein").addEventListener("click", () => {
 });
 document.getElementById("ja").focus();
 
-/* ---------- Suche ---------- */
-const suche = document.getElementById("suche");
-const lupe  = document.getElementById("lupe");
-const feld  = document.getElementById("suchfeld");
-lupe.addEventListener("click", () => {
-  const offen = suche.classList.toggle("offen");
-  lupe.setAttribute("aria-expanded", offen);
-  lupe.setAttribute("aria-label", offen ? "Suche schließen" : "Suche öffnen");
-  if (offen) feld.focus(); else { feld.value = ""; zeichnen(); }
-});
-feld.addEventListener("input", zeichnen);
-feld.addEventListener("keydown", e => { if (e.key === "Escape") lupe.click(); });
-
-/* ---------- Filter ---------- */
-let filter = "alle";
-document.querySelectorAll(".chip").forEach(chip => {
-  chip.addEventListener("click", () => {
-    filter = chip.dataset.filter;
-    document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === chip));
-    zeichnen();
-  });
+/* ---------- Bonusrechner ---------- */
+let betrag = 100;
+const eigen = document.getElementById("betrag-eigen");
+const zahl = n => n.toLocaleString("de-DE", { maximumFractionDigits: 2 });
+const euro = n => n.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+function untermHTML(c){
+  const w = c.werte || {};
+  if (!w.prozent) return "";
+  if (w.min && betrag < w.min){
+    return `<small>Unterm Strich</small><span class="zu-wenig">Bonus erst ab ${zahl(w.min)} € Einzahlung</span>`;
+  }
+  const bonus = Math.min(betrag * w.prozent / 100, w.max ?? Infinity);
+  return `<small>Unterm Strich</small><b>${euro(betrag + bonus)}</b><span>zum Spielen</span><em>bei ${euro(betrag)} Einzahlung</em>`;
+}
+function untermAktualisieren(){
+  document.querySelectorAll(".unterm").forEach(el => { el.innerHTML = untermHTML(CASINOS[el.dataset.idx]); });
+}
+function betragMarkieren(){
+  document.querySelectorAll(".betrag").forEach(b =>
+    b.setAttribute("aria-pressed", !eigen.value && Number(b.dataset.betrag) === betrag));
+}
+document.querySelectorAll(".betrag").forEach(b => b.addEventListener("click", () => {
+  betrag = Number(b.dataset.betrag);
+  eigen.value = "";
+  betragMarkieren(); untermAktualisieren();
+}));
+eigen.addEventListener("input", () => {
+  const v = parseFloat(eigen.value.replace(/\./g, "").replace(",", "."));
+  if (v > 0 && v <= 1000000){ betrag = v; }
+  else if (!eigen.value){ betrag = 100; }
+  betragMarkieren(); untermAktualisieren();
 });
 
 /* ---------- Liste bauen ---------- */
 function zeichnen(){
   // Gar keine Deals gepflegt? Dann Pausen-Ansicht zeigen und Steuerung ausblenden.
   if (!CASINOS.length){
-    document.querySelector(".steuerung").hidden = true;
+    document.getElementById("rechner-wrap").hidden = true;
     document.getElementById("liste").innerHTML = PAUSE_ANSICHT;
     return;
   }
-  document.querySelector(".steuerung").hidden = false;
 
-  const q = feld.value.trim().toLowerCase();
-  const treffer = CASINOS.filter(c => {
-    const passt = filter === "alle" || c.typ === filter;
-    const codeListe = (c.codes || []).flatMap(k => [k.code, k.kurz, k.wofuer]);
-    const text = [c.name, c.bonus, LABEL[c.typ], c.plus || "", c.fs || "", c.schnell || "",
-                  c.kyc || "", c.ohneCode || "", ...codeListe, ...(c.tags || []), ...(c.starkeTags || [])]
-                 .join(" ").toLowerCase();
-    return passt && (!q || text.includes(q));
-  });
-
+  document.getElementById("rechner-wrap").hidden = false;
+  const treffer = CASINOS;
   const liste = document.getElementById("liste");
-
-  if (!treffer.length){
-    liste.innerHTML = `<div class="leer">
-      <p>Kein Angebot passt zu dieser Suche.</p>
-      <button id="reset">Filter zurücksetzen</button></div>`;
-    document.getElementById("reset").addEventListener("click", () => {
-      feld.value = ""; filter = "alle";
-      suche.classList.remove("offen");
-      lupe.setAttribute("aria-expanded", false);
-      document.querySelectorAll(".chip").forEach(c =>
-        c.setAttribute("aria-pressed", c.dataset.filter === "alle"));
-      zeichnen();
-    });
-    return;
-  }
 
   liste.innerHTML = treffer.map((c, i) => `
     <article class="deal ${c.stern ? "deal--stern" : ""} ${i === 0 && !c.stern ? "deal--top" : ""}">
@@ -772,39 +895,51 @@ function zeichnen(){
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.8.8-5 4.7 1.3 6.8L12 17.3 6 20.6l1.3-6.8-5-4.7 6.8-.8z"/></svg>
         Top-Empfehlung
       </div>` : ""}
-      <div class="zeile">
-        <div class="identitaet">
-          <span class="rang">${i + 1}</span>
-          <img class="logo" src="${c.logo}" alt="${c.name} Logo" loading="lazy"
-               onerror="this.outerHTML='<div class=&quot;logo-alt&quot; aria-hidden=&quot;true&quot;>${c.name.charAt(0)}</div>'">
+      <div class="karte-oben">
+        <div class="spalte-logo">
+          <span class="rang-badge">#${i + 1}</span>
+          <img class="logo-gross" src="${c.logo}" alt="${c.name} Logo" loading="lazy"
+               onerror="this.outerHTML='<div class=&quot;logo-gross logo-ersatz&quot; aria-hidden=&quot;true&quot;>${c.name.charAt(0)}</div>'">
         </div>
 
-        <div class="inhalt">
-          <h3>${c.name}</h3>
-          <div class="tags">
-            <span class="tag-mit-label">${c.bonusLabel ? `<small>${c.bonusLabel}</small>` : ""}<span class="tag tag--bonus">${c.bonus}</span></span>
-            ${(c.bonusTags || []).map(t => `<span class="tag-mit-label">${t.label ? `<small>${t.label}</small>` : ""}<span class="tag tag--bonus">${t.text}</span></span>`).join("")}
-            <span class="tag tag--typ ${c.typ === "sticky" ? "ist-sticky" : ""}">${LABEL[c.typ]}</span>
-            ${(c.starkeTags || []).map(t => `<span class="tag tag--stark">${t}</span>`).join("")}
-            ${(c.tags || []).map(t => `<span class="tag">${t}</span>`).join("")}
-            ${(c.codes || []).filter(k => k.chip !== false).map(k => `<button class="tag tag--code kopieren" data-code="${k.code}" title="${k.wofuer} – klicken zum Kopieren">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              ${k.kurz}: ${k.code}</button>`).join("")}
+        <div class="spalte-haupt">
+          <div class="info">
+            <h3>${c.name}</h3>
+            <div class="badges">
+              <span class="badge badge--${c.typ}">${LABEL[c.typ]}</span>
+              ${(c.bonusTags || []).map(t => `<span class="badge">${t.label ? t.label + ": " : ""}${t.text}</span>`).join("")}
+              ${(c.tags || []).map(t => `<span class="badge">${t}</span>`).join("")}
+            </div>
+            ${(c.zahlung || []).length ? `<div class="zahlung">
+              <small>Zahlungsmethoden</small>
+              <div>${c.zahlung.map(z => `<span>${z}</span>`).join("")}</div>
+            </div>` : ""}
           </div>
-          ${(c.codes || []).filter(k => k.chip !== false).length ? `<p class="code-hinweis">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5l2 2 4.5-4.5"/><circle cx="12" cy="12" r="9.2"/></svg>
-            ${(c.codes || []).filter(k => k.chip !== false).length > 1 ? "Codes anklicken zum Kopieren" : "Code anklicken zum Kopieren"}
-          </p>` : ""}
-        </div>
 
-        <div class="aktion">
-          <a class="cta" href="${c.link}" target="_blank" rel="nofollow sponsored noopener">Bonus holen →</a>
-          <button class="details-knopf" aria-expanded="false">
-            Details
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
+          <div class="werte">
+            <div class="wert wert--akzent"><b>${c.werte.prozent}%</b><span>Bonus</span></div>
+            <div class="wert"><b>${c.werte.max ? zahl(c.werte.max) + "€" : "∞"}</b><span>Max. Bonus</span></div>
+            <div class="wert"><b>${c.werte.maxBet ? zahl(c.werte.maxBet) + "€" : "–"}</b><span>Max. Einsatz</span></div>
+            <div class="wert"><b>${c.werte.wager}x</b><span>Umsatz</span></div>
+          </div>
+
+          <div class="aktion">
+            ${(c.codes || []).length ? `<span class="aktion-label">${c.codes.length > 1 ? "Codes anklicken zum Kopieren" : "Code anklicken zum Kopieren"}</span>
+            <div class="code-chips">
+              ${c.codes.map(k => `<button class="tag tag--code kopieren" data-code="${k.code}" title="${k.wofuer} – klicken zum Kopieren">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                ${k.code}</button>`).join("")}
+            </div>` : `<span class="aktion-label">Kein Code nötig</span>`}
+            <a class="cta" href="${c.link}" target="_blank" rel="nofollow sponsored noopener">Spielen →</a>
+            <button class="details-knopf" aria-expanded="false">
+              Details
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
         </div>
       </div>
+
+      <div class="unterm" data-idx="${CASINOS.indexOf(c)}">${untermHTML(c)}</div>
 
       <div class="panel"><div>
         <div class="panel-inhalt">
@@ -911,6 +1046,13 @@ function zeichnen(){
     });
   });
 
+  liste.querySelectorAll(".cta").forEach(a => {
+    a.addEventListener("click", () => {
+      a.classList.remove("holo"); void a.offsetWidth; a.classList.add("holo");
+      setTimeout(() => a.classList.remove("holo"), 900);
+    });
+  });
+
   liste.querySelectorAll(".details-knopf").forEach(b => {
     b.addEventListener("click", () => {
       const auf = b.getAttribute("aria-expanded") !== "true";
@@ -920,11 +1062,6 @@ function zeichnen(){
   });
 }
 
-if (!CASINOS.length){
-  document.getElementById("hero-pille").textContent = "Aktuell in Verhandlung";
-  document.getElementById("hero-text").textContent =
-    "Ich empfehle nur Boni, die ich selbst spielen würde. Gerade ist keiner dabei – das ändert sich bald wieder.";
-}
 
 zeichnen();
 
