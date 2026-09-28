@@ -843,6 +843,19 @@ document.getElementById("nein").addEventListener("click", () => {
 });
 document.getElementById("ja").focus();
 
+/* ---------- Logo: andere Dateiendungen probieren (png, webp, jpg, jpeg, svg) ---------- */
+const LOGO_ENDUNGEN = ["png", "webp", "jpg", "jpeg", "svg"];
+function logoFehler(img){
+  const basis = img.getAttribute("src").replace(/\.[a-z0-9]+$/i, "");
+  const versuch = Number(img.dataset.versuch || 0);
+  if (versuch < LOGO_ENDUNGEN.length){
+    img.dataset.versuch = versuch + 1;
+    img.src = basis + "." + LOGO_ENDUNGEN[versuch];
+  } else {
+    img.outerHTML = '<div class="logo-gross logo-ersatz" aria-hidden="true">' + img.dataset.buchstabe + '</div>';
+  }
+}
+
 /* ---------- Bonusrechner ---------- */
 let betrag = 100;
 const eigen = document.getElementById("betrag-eigen");
@@ -899,7 +912,7 @@ function zeichnen(){
         <div class="spalte-logo">
           <span class="rang-badge">#${i + 1}</span>
           <img class="logo-gross" src="${c.logo}" alt="${c.name} Logo" loading="lazy"
-               onerror="this.outerHTML='<div class=&quot;logo-gross logo-ersatz&quot; aria-hidden=&quot;true&quot;>${c.name.charAt(0)}</div>'">
+               data-buchstabe="${c.name.charAt(0)}" onerror="logoFehler(this)">
         </div>
 
         <div class="spalte-haupt">
